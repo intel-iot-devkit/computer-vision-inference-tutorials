@@ -26,22 +26,22 @@ If you run into issues, don't hesitate to contact us on the forum https://softwa
 * Intel Computer Vision SDK Beta r3 installed.  See [Setup insructions for how to install](../0-setup/) 
 * cmake installed 
 ```sudo apt-get install cmake```
-* Download the vtest.avi video from https://github.com/opencv/opencv/blob/master/samples/data/vtest.avi and put it in the same folder as the python script.
+* Download the vtest.avi video from https://github.com/opencv/opencv/blob/master/samples/data/vtest.avi 
 	
 ## Setup
 1. If you have not already, install the Intel Computer Vision SDK, see [Setup insructions for how to install](../0-setup/).
 2. In the IE_Tutorial folder, create a build folder:
 ```mkdir build && cd build```
-3. In that folder run cmake and make:
+3. In that folder run cmake and make:  
 ```
 cmake ..
 make install
 ```
-4. You should see a new folder created at the same level of the build folder called 'bin' which contains the binary application.  Verify the application is there in
-```
-/bin/intel64/Release/IE_tutorial_obj_recognition
-```
-5. Copy the vtest.avi (https://github.com/opencv/opencv/blob/master/samples/data/vtest.avi) into the /Release folder.
+4. You should see a new folder created at the same level of the build folder called 'bin' which contains the binary application.  Verify the application is there in ```/bin/intel64/Release/IE_tutorial_obj_recognition```  
+
+Look for ```IE_tutorial_obj_recognition```
+
+5. Copy the vtest.avi video (https://github.com/opencv/opencv/blob/master/samples/data/vtest.avi) into the ```/Release``` folder.
 
 ### Running the application
 ```
@@ -93,7 +93,7 @@ If you change the threshold of the confidence level to 0.1, you'll see a lot mor
 ![](images/expected_results_3.jpg)
 	
 ### Checking performance data
-You can enable the output of performance data to the console by using the -pc flag.
+You can enable the output of performance data to the console by using the ```-pc``` flag.
 ```
 -pc
 ```
@@ -107,7 +107,7 @@ If you installed the optional OpenCL drivers for the GPU during the CV SDK, you 
 -d GPU
 ```
 
-To see the performance difference between the CPU and the GPU, add the -pc flag to the different runs using the -d CPU and -d GPU flags and compare.
+To see the performance difference between the CPU and the GPU, add the -pc flag to the different runs using the ```-d CPU``` and ```-d GPU``` flags and compare.
 CPU:
 ```
 ./IE_tutorial_obj_recognition -i vtest.avi -fr 500 -m SSD_GoogleNet_v2_fp32.xml -l SSD_GoogleNet_v2_fp32.bin -d CPU -t SSD -thresh 0.3 -pc
@@ -118,7 +118,7 @@ GPU:
 ```
 
 ## Get the Code
-<>
+
 
 ## How it works
 <>
