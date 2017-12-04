@@ -18,10 +18,13 @@
 	
 ## Setup
 ### Run pre-install script
+<>
 
 ### Install CV SDK
+<>
 
 ### Run post-install script
+<>
 
 ### Try a sample inference application
 One of the main advantages of the CV SDK is the accelerated Deep Learning Inference Engine, which also allows you to take advantage of the Intel integrated GPU if you want.  
