@@ -7,6 +7,11 @@ This tutorial will walk you through the basics of using the Deep Learning Infere
 * It also allows inference to be ran on other harware, not just the CPU, such as the built-in Intel GPU or FPGA accelerator card.
 
 ### How does the Deep Learning Inference Engine work?
+The Inference Engine takes a neural network model and optimizes it to take advantage of advanced Intel instruction sets in the CPU, and also makes it compatible with the other hardware accelerators (GPU and FPGA).  To do this, the model files, e.g., .caffemodel, .prototxt, are given to the Model Optimizer.  The Model Optimizer then processes the files and outputs two new files: a .bin and .xml.  These two files are used instead of the original model files when you run your application. In this example, the .bin and .xml files are already provided for you.
+
+![](/images/inference_engine.jpg)
+
+**WHAT DOES IR STAND FOR?**
 
 ## What you’ll learn
   * <>
