@@ -91,7 +91,30 @@ If you change the threshold of the confidence level to 0.1, you'll see a lot mor
 ![](images/expected_results_3.jpg)
 	
 ### Checking performance data
+You can enable the output of performance data to the console by using the
+```
+-pr
+```
+flag.
 
+![](images/expected_results_4.jpg)
+**FORMATTING IS INCORRECT**
+
+### Running on the GPU
+If you installed the optional OpenCL drivers for the GPU during the CV SDK, you can try running inference on the GPU.
+```
+-d GPU
+```
+so
+```
+./IE_tutorial_obj_recognition -i vtest.avi -fr 500 -m SSD_GoogleNet_v2_fp32.xml -l SSD_GoogleNet_v2_fp32.bin -d GPU -t SSD -thresh 0.3
+```
+
+To see the performance difference between the CPU and the GPU, add the
+```
+-pc
+```
+to different runs using the CPU and GPU and compare.
 
 ## Get the Code
 <>
