@@ -45,10 +45,37 @@ make install
 ./IE_tutorial_obj_recognition -i vtest.avi -fr 500 -m SSD_GoogleNet_v2_fp32.xml -l SSD_GoogleNet_v2_fp32.bin -d CPU -t SSD -thresh 0.3
 ```
 
-You should see a video play with people walking across and green bouding boxes around them
+You should see a video play with people walking across and green bouding boxes around them:
+
 ![](images/expected_results_1.jpg)
 
-Here is what the flags mean:
+You should also see the output in the console showing the objects found and the confidence level.
+
+![](images/expected_results_2.jpg)
+
+Here is the mapping for the classification:
+
+1 - plane
+2 - bicycle
+3 - bird
+...
+**EXAMPLE, NEED ACTUAL LIST**
+
+Here is what the flags mean for running the application.  This can also be found by running:
+```
+./IE_tutorial_obj_recognition -help
+```
+
+    -h           Print a usage message
+    -i <path>    Required. Path to input video file
+    -fr <path>   Number of frames from stream to process
+    -m <path>    Required. Path to IR .xml file.
+    -l <path>    Required. Path to labels file.
+    -d <device>  Infer target device (CPU or GPU)
+    -t <type>    Infer type (SSD, YOLO, YOLO-tiny)
+    -pc          Enables per-layer performance report
+    -thresh <val>confidence threshold for bounding boxes 0-1
+    -b <val>     Batch size
 
 ### Checking performance data
 
