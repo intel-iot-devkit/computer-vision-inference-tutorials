@@ -1,4 +1,4 @@
-# Intel Computer Vision SDK Setup for using the Inference Engine with Ubuntu 16.04
+# Intel Computer Vision SDK Setup for using the Inference Engine
 
 <>
 
@@ -15,8 +15,6 @@
 	* A procesor with Intel® Iris Pro Graphics and HD Graphics **HOW TO CHECK?** 
 	* No discrete graphics card installed (required by OpenCL)
 	* No drivers for other GPUs installed, or libraries built with support for other GPUs **HOW TO CHECK?** 
-
-
 	
 ## Setup
 1. 

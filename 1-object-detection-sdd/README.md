@@ -21,8 +21,9 @@ The Inference Engine takes a neural network model and optimizes it to take advan
 
 ## Gather your materials
 * Intel Computer Vision SDK Beta r3 installed.  See [Setup insructions for how to install](../0-setup/) 
-
-
+* cmake installed 
+```sudo apt-get install cmake```
+* Download the vtest.avi video from https://github.com/opencv/opencv/blob/master/samples/data/vtest.avi and put it in the same folder as the python script.
 	
 ## Setup
 1. 
