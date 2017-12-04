@@ -77,11 +77,10 @@ Here is what the flags mean for running the application.  This can also be found
     -thresh <val>confidence threshold for bounding boxes 0-1
     -b <val>     Batch size
 
-In this sample video, there are approximately 790 frames, so by setting
+In this sample video, there are approximately 790 frames, so by setting the number of frames to 790 you'll see the whole video.
 ```
 -fr 790
 ```
-you'll see the whole video.
 
 If you change the threshold of the confidence level to 0.1, you'll see a lot more bounding boxes around the people, but also many erroneous ones.
 ```
@@ -91,11 +90,10 @@ If you change the threshold of the confidence level to 0.1, you'll see a lot mor
 ![](images/expected_results_3.jpg)
 	
 ### Checking performance data
-You can enable the output of performance data to the console by using the
+You can enable the output of performance data to the console by using the -pr flag.
 ```
 -pr
 ```
-flag.
 
 ![](images/expected_results_4.jpg)
 **FORMATTING IS INCORRECT**
@@ -110,11 +108,14 @@ so
 ./IE_tutorial_obj_recognition -i vtest.avi -fr 500 -m SSD_GoogleNet_v2_fp32.xml -l SSD_GoogleNet_v2_fp32.bin -d GPU -t SSD -thresh 0.3
 ```
 
-To see the performance difference between the CPU and the GPU, add the
+To see the performance difference between the CPU and the GPU, add the -pc flag to the different runs using the -d CPU and -d GPU flags and compare.
+CPU:
 ```
--pc
+./IE_tutorial_obj_recognition -i vtest.avi -fr 500 -m SSD_GoogleNet_v2_fp32.xml -l SSD_GoogleNet_v2_fp32.bin -d CPU -t SSD -thresh 0.3 -pc
 ```
-to different runs using the CPU and GPU and compare.
+GPU:
+./IE_tutorial_obj_recognition -i vtest.avi -fr 500 -m SSD_GoogleNet_v2_fp32.xml -l SSD_GoogleNet_v2_fp32.bin -d GPU -t SSD -thresh 0.3 -pc
+
 
 ## Get the Code
 <>
