@@ -13,9 +13,10 @@ The Inference Engine takes a neural network model and optimizes it to take advan
 
 In the above diagram, IR stands for Intermediate Representation, which is just a name for the .xml and .bin files that are inputs to the Inference Engine.
 
-If you need to 
+When you want to use another model in the Inference Engine, refer to this tutorial on how to get the necessary files using the Model Optimizer.
+https://software.intel.com/en-us/inference-trained-models-with-intel-dl-deployment-toolkit-beta-2017r3
 
-**HOW MANY IR MODELS ARE AVAILABLE NOW? WHERE TO GET THEM?**
+If you run into issues, don't hesitate to contact us on the forum https://software.intel.com/en-us/forums/computer-vision 
 
 ## What you’ll learn
   * Run the Inference Engine with an IR model in a C++ application
