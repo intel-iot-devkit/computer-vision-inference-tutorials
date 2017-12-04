@@ -11,7 +11,9 @@ The Inference Engine takes a neural network model and optimizes it to take advan
 
 ![](images/inference_engine.jpg)
 
-**WHAT DOES IR STAND FOR?**
+In the above diagram, IR stands for Intermediate Representation, which is just a name for the .xml and .bin files that are inputs to the Inference Engine.
+
+If you need to 
 
 **HOW MANY IR MODELS ARE AVAILABLE NOW? WHERE TO GET THEM?**
 
@@ -90,9 +92,9 @@ If you change the threshold of the confidence level to 0.1, you'll see a lot mor
 ![](images/expected_results_3.jpg)
 	
 ### Checking performance data
-You can enable the output of performance data to the console by using the -pr flag.
+You can enable the output of performance data to the console by using the -pc flag.
 ```
--pr
+-pc
 ```
 
 ![](images/expected_results_4.jpg)
