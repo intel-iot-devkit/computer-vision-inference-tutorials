@@ -53,13 +53,13 @@ You should also see the output in the console showing the objects found and the 
 
 ![](images/expected_results_2.jpg)
 
-Here is the mapping for the classification:
+Here is the mapping for the labels of the classification:
 
-1 - plane
-2 - bicycle
-3 - bird
-...
-**EXAMPLE, NEED ACTUAL LIST**
+1 - plane  
+2 - bicycle  
+3 - bird  
+...  
+**EXAMPLE, NEED ACTUAL LIST**  
 
 Here is what the flags mean for running the application.  This can also be found by running:
 ```
@@ -72,11 +72,24 @@ Here is what the flags mean for running the application.  This can also be found
     -m <path>    Required. Path to IR .xml file.
     -l <path>    Required. Path to labels file.
     -d <device>  Infer target device (CPU or GPU)
-    -t <type>    Infer type (SSD, YOLO, YOLO-tiny)
+    -t <type>    Infer type (SSD, etc)
     -pc          Enables per-layer performance report
     -thresh <val>confidence threshold for bounding boxes 0-1
     -b <val>     Batch size
 
+In this sample video, there are approximately 790 frames, so by setting
+```
+-fr 790
+```
+you'll see the whole video.
+
+If you change the threshold of the confidence level to 0.1, you'll see a lot more bounding boxes around the people, but also many erroneous ones.
+```
+-thresh 0.1
+```
+
+![](images/expected_results_3.jpg)
+	
 ### Checking performance data
 
 
