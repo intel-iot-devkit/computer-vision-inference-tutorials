@@ -26,7 +26,32 @@ The Inference Engine takes a neural network model and optimizes it to take advan
 * Download the vtest.avi video from https://github.com/opencv/opencv/blob/master/samples/data/vtest.avi and put it in the same folder as the python script.
 	
 ## Setup
-1. 
+1. If you have not already, install the Intel Computer Vision SDK, see [Setup insructions for how to install](../0-setup/).
+2. In the IE_Tutorial folder, create a build folder:
+```mkdir build && cd build```
+3. In that folder run cmake and make:
+```
+cmake ..
+make install
+```
+4. You should see a new folder created at the same level of the build folder called 'bin' which contains the binary application.  Verify the application is there in
+```
+/bin/intel64/Release/IE_tutorial_obj_recognition
+```
+5. Copy the vtest.avi (https://github.com/opencv/opencv/blob/master/samples/data/vtest.avi) into the /Release folder.
+
+### Running the application
+```
+./IE_tutorial_obj_recognition -i vtest.avi -fr 500 -m SSD_GoogleNet_v2_fp32.xml -l SSD_GoogleNet_v2_fp32.bin -d CPU -t SSD -thresh 0.3
+```
+
+You should see a video play with people walking across and green bouding boxes around them
+![](images/expected_results_1.jpg)
+
+Here is what the flags mean:
+
+### Checking performance data
+
 
 ## Get the Code
 <>
