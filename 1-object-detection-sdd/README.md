@@ -103,10 +103,6 @@ If you installed the optional OpenCL drivers for the GPU during the CV SDK, you 
 ```
 -d GPU
 ```
-so
-```
-./IE_tutorial_obj_recognition -i vtest.avi -fr 500 -m SSD_GoogleNet_v2_fp32.xml -l SSD_GoogleNet_v2_fp32.bin -d GPU -t SSD -thresh 0.3
-```
 
 To see the performance difference between the CPU and the GPU, add the -pc flag to the different runs using the -d CPU and -d GPU flags and compare.
 CPU:
@@ -114,8 +110,9 @@ CPU:
 ./IE_tutorial_obj_recognition -i vtest.avi -fr 500 -m SSD_GoogleNet_v2_fp32.xml -l SSD_GoogleNet_v2_fp32.bin -d CPU -t SSD -thresh 0.3 -pc
 ```
 GPU:
+```
 ./IE_tutorial_obj_recognition -i vtest.avi -fr 500 -m SSD_GoogleNet_v2_fp32.xml -l SSD_GoogleNet_v2_fp32.bin -d GPU -t SSD -thresh 0.3 -pc
-
+```
 
 ## Get the Code
 <>
