@@ -1,6 +1,6 @@
 # Object Detection using Inference and Single Shot MultiBox Detector (SSD)\*
 
-This tutorial will walk you through the basics of using the Deep Learning Deployment Tookit's Inference Engine (included in the Intel® Computer Vision SDK). Inference includes using a trained neural network and feeding it an image to get the results. Inference is typically done using a neural network architecture, such as AlexNet\*, GoogleNet\*, or Single Shot MultiBox Detector (SSD)\*, which can be ran on various frameworks, like Caffe\*, Tensorflow\*, Torch\*, and more.  This example uses the Single Shot MultiBox Detector (SSD) with Caffe.
+This tutorial will walk you through the basics of using the Deep Learning Deployment Toolkit's Inference Engine (included in the Intel® Computer Vision SDK). Inference includes using a trained neural network and feeding it an image to get the results. Inference is typically done using a neural network architecture, such as AlexNet\*, GoogleNet\*, or Single Shot MultiBox Detector (SSD)\*, which can be ran on various frameworks, like Caffe\*, Tensorflow\*, Torch\*, and more.  This example uses the Single Shot MultiBox Detector (SSD) with Caffe.
 
 ### So what's different about running a neural network on the Inference Engine versus an out of the box framework?  
 * The Deep Learning Deployment Tookit's Inference Engine optimizes a trained model to run *__significantly faster__* on Intel® architecture.
