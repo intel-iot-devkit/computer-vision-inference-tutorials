@@ -161,9 +161,18 @@ https://software.intel.com/en-us/ipp-dev-guide-channel-and-planar-image-data-lay
 ### Load model to the Inference Engine
 There are three steps to loading a model into the Inference Engine:
 1. Load plugin
-This is done by 
+This is done by using the ```InferenceEnginePluginPtr _plugin()``` function.  
+
+**__WHERE IS THIS PLUGIN LOCATED??__**
 
 2. Read network
+The network object is initialized
+
+```InferenceEngine::CNNNetReader network;```
+
+and then a network is read using the ReadNetwork() function
+
+```network.ReadNetwork(FLAGS_m)```
 
 3. Load model into plugin
 
