@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-# Object Detection using Inference and SSD
-=======
 # Object Detection using Inference and Single Shot MultiBox Detector (SSD)\*
->>>>>>> 39c06df5eb3826e9efa7663fd24d593fc86a2b05
 
 This tutorial will walk you through the basics of using the Deep Learning Deployment Toolkit's Inference Engine (included in the Intel® Computer Vision SDK). Inference includes using a trained neural network and feeding it an image to get the results. Inference is typically done using a neural network architecture, such as AlexNet\*, GoogleNet\*, or Single Shot MultiBox Detector (SSD)\*, which can be ran on various frameworks, like Caffe\*, Tensorflow\*, Torch\*, and more.  This example uses the Single Shot MultiBox Detector (SSD) with Caffe.
 
@@ -10,13 +6,8 @@ This tutorial will walk you through the basics of using the Deep Learning Deploy
 * The Deep Learning Deployment Tookit's Inference Engine optimizes a trained model to run *__significantly faster__* on Intel® architecture.
 * It also allows inference to run on hardware other than the CPU such as the built-in Intel® GPU or Intel® FPGA accelerator card.
 
-<<<<<<< HEAD
 ### How does the Deep Learning Inference Engine work?
-The Inference Engine takes a neural network model and optimizes it to take advantage of advanced Intel instruction sets in the CPU, and also makes it compatible with the other hardware accelerators (GPU and FPGA).  To do this, the model files, e.g., .caffemodel, .prototxt, are given to the Model Optimizer.  The Model Optimizer then processes the files and outputs two new files: a .bin and .xml.  These two files are used instead of the original model files when you run your application. In this example, you will walk through the process of generating the .bin and .xml files from a Caffe model.
-=======
-### How does the Deep Learning Deployment Tookit's Inference Engine work?
 The Inference Engine takes a neural network model and optimizes it to take advantage of advanced Intel instruction sets in the CPU, and also makes it compatible with the other hardware accelerators (GPU and FPGA). To do this, the model files (e.g., .caffemodel, .prototxt) are given to the Model Optimizer which then processes the files and outputs two new files: a .bin and .xml.  These two files are used instead of the original model files when you run your application. In this example, the .bin and .xml files are provided.
->>>>>>> 39c06df5eb3826e9efa7663fd24d593fc86a2b05
 
 ![](images/inference_engine.jpg)
 
@@ -32,13 +23,7 @@ If you run into issues, don't hesitate to contact us on the forum https://softwa
   * Compare the performance of CPU vs GPU
 
 ## Gather your materials
-<<<<<<< HEAD
-* Intel Computer Vision SDK Beta r3 installed.  See [Setup insructions for how to install](../0-setup/) 
-=======
 * Intel® Computer Vision SDK Beta r3 installed.  See [Setup insructions for how to install](../0-setup/) 
-* cmake installed 
-```sudo apt-get install cmake```
->>>>>>> 39c06df5eb3826e9efa7663fd24d593fc86a2b05
 * Download the vtest.avi video from https://github.com/opencv/opencv/blob/master/samples/data/vtest.avi 
 	
 ## Setup
