@@ -174,6 +174,14 @@ and then a network is read using the ReadNetwork() function
 
 ```network.ReadNetwork(FLAGS_m)```
 
+FLAGS_m means the -m flag, which in this case is ```SSD_GoogleNet_v2_fp32.xml```
+
+The weights are then added to the network
+
+```network.ReadWeights(binFileName.c_str());```
+
+**Note**: The .xml file contains the network, and the .bin contains the weights.
+
 3. Load model into plugin
 
 
