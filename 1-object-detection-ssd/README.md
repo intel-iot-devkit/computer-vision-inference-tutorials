@@ -1,4 +1,4 @@
-# Object Detection using Inference and SDD
+# Object Detection using Inference and SSD
 
 This tutorial will walk you through the basics of using the Deep Learning Inference Engine included in the Intel Computer Vision SDK (CV SDK).  Inference includes using a trained neural network and feeding it an image to get the results.  Inference is typically done using a neural network architecture, such as AlexNet, GoogleNet, or Single Shot MultiBox Detector (SSD), which can be ran on various frameworks, like Caffe, Tensorflow, Torch, and more.  This example uses the Single Shot MultiBox Detector (SSD) with Caffe.
 
@@ -7,7 +7,7 @@ This tutorial will walk you through the basics of using the Deep Learning Infere
 * It also allows inference to be ran on other harware, not just the CPU, such as the built-in Intel GPU or FPGA accelerator card.
 
 ### How does the Deep Learning Inference Engine work?
-The Inference Engine takes a neural network model and optimizes it to take advantage of advanced Intel instruction sets in the CPU, and also makes it compatible with the other hardware accelerators (GPU and FPGA).  To do this, the model files, e.g., .caffemodel, .prototxt, are given to the Model Optimizer.  The Model Optimizer then processes the files and outputs two new files: a .bin and .xml.  These two files are used instead of the original model files when you run your application. In this example, the .bin and .xml files are already provided for you.
+The Inference Engine takes a neural network model and optimizes it to take advantage of advanced Intel instruction sets in the CPU, and also makes it compatible with the other hardware accelerators (GPU and FPGA).  To do this, the model files, e.g., .caffemodel, .prototxt, are given to the Model Optimizer.  The Model Optimizer then processes the files and outputs two new files: a .bin and .xml.  These two files are used instead of the original model files when you run your application. In this example, you will walk through the process of generating the .bin and .xml files from a Caffe model.
 
 ![](images/inference_engine.jpg)
 
@@ -24,17 +24,15 @@ If you run into issues, don't hesitate to contact us on the forum https://softwa
 
 ## Gather your materials
 * Intel Computer Vision SDK Beta r3 installed.  See [Setup insructions for how to install](../0-setup/) 
-* cmake installed 
-```sudo apt-get install cmake```
 * Download the vtest.avi video from https://github.com/opencv/opencv/blob/master/samples/data/vtest.avi 
 	
 ## Setup
 1. If you have not already, install the Intel Computer Vision SDK, see [Setup insructions for how to install](../0-setup/).
 2. In the IE_Tutorial folder, create a build folder:
 ```mkdir build && cd build```
-3. In that folder run cmake and make:  
+3. In that folder run makemake:  
 ```
-cmake ..
+make
 make install
 ```
 4. You should see a new folder created at the same level of the build folder called 'bin' which contains the binary application.  Verify the application is there in ```/bin/intel64/Release/IE_tutorial_obj_recognition```  
@@ -43,7 +41,11 @@ Look for ```IE_tutorial_obj_recognition```
 
 5. Copy the vtest.avi video (https://github.com/opencv/opencv/blob/master/samples/data/vtest.avi) into the ```/Release``` folder.
 
+## Get the Code
+The code is localed in ```main.cpp``` in the same folder as this README.
+
 ### Running the application
+Run this command in the `/bin/intel64/Release``` folder:
 ```
 ./IE_tutorial_obj_recognition -i vtest.avi -fr 500 -m SSD_GoogleNet_v2_fp32.xml -l SSD_GoogleNet_v2_fp32.bin -d CPU -t SSD -thresh 0.3
 ```
@@ -61,8 +63,25 @@ Here is the mapping for the labels of the classification:
 1 - plane  
 2 - bicycle  
 3 - bird  
-...  
-**EXAMPLE, NEED ACTUAL LIST**  
+4 - board
+5 - bottle
+6 - bus
+7 - car
+8 - cat
+9 - chair
+10 - cow
+11 - table
+12 - dog
+13 - horse
+14 - motorcycle
+15 - person
+16 - plant
+17 - sheep
+18 - sofa
+19 - train
+20 - monitor
+
+They can be found in ```pascal_voc_classes.txt``` in this folder.
 
 Here is what the flags mean for running the application.  This can also be found by running:
 ```
@@ -116,9 +135,6 @@ GPU:
 ```
 ./IE_tutorial_obj_recognition -i vtest.avi -fr 500 -m SSD_GoogleNet_v2_fp32.xml -l SSD_GoogleNet_v2_fp32.bin -d GPU -t SSD -thresh 0.3 -pc
 ```
-
-## Get the Code
-
 
 ## How it works
 <>
