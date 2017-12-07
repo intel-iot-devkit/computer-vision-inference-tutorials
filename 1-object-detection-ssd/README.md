@@ -19,7 +19,8 @@ https://software.intel.com/en-us/inference-trained-models-with-intel-dl-deployme
 If you run into issues, don't hesitate to contact us on the forum https://software.intel.com/en-us/forums/computer-vision 
 
 ## What you’ll learn
-  * Run the Inference Engine with an IR model in a C++ application
+  * How to generate the .bin and .xml (IR files) needed for the Inference Engine from a Caffe model
+  * Run the Inference Engine using the IR files in a C++ application
   * Compare the performance of CPU vs GPU
 
 ## Gather your materials
@@ -37,7 +38,7 @@ make install
 ```
 4. You should see a new folder created at the same level of the build folder called 'bin' which contains the binary application.  Verify the application is there in ```/bin/intel64/Release/IE_tutorial_obj_recognition```  
 
-Look for ```IE_tutorial_obj_recognition```
+	Look for ```IE_tutorial_obj_recognition```
 
 5. Copy the vtest.avi video (https://github.com/opencv/opencv/blob/master/samples/data/vtest.avi) into the ```/Release``` folder.
 
