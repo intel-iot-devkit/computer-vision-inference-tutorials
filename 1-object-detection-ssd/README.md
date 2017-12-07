@@ -64,23 +64,23 @@ Here is the mapping for the labels of the classification:
 1 - plane  
 2 - bicycle  
 3 - bird  
-4 - board
-5 - bottle
-6 - bus
-7 - car
-8 - cat
-9 - chair
-10 - cow
-11 - table
-12 - dog
-13 - horse
-14 - motorcycle
-15 - person
-16 - plant
-17 - sheep
-18 - sofa
-19 - train
-20 - monitor
+4 - board  
+5 - bottle  
+6 - bus  
+7 - car  
+8 - cat  
+9 - chair  
+10 - cow  
+11 - table  
+12 - dog  
+13 - horse  
+14 - motorcycle  
+15 - person  
+16 - plant  
+17 - sheep  
+18 - sofa  
+19 - train  
+20 - monitor  
 
 They can be found in ```pascal_voc_classes.txt``` in this folder.
 
@@ -127,7 +127,8 @@ If you installed the optional OpenCL\* drivers for the GPU during the Intel® Co
 -d GPU
 ```
 
-To see the performance difference between the CPU and the GPU, add the -pc flag to the different runs using the ```-d CPU``` and ```-d GPU``` flags and compare.
+To see the performance difference between the CPU and the GPU, add the -pc flag to the different runs using the ```-d CPU``` and ```-d GPU``` flags and compare.  
+
 CPU:
 ```
 ./IE_tutorial_obj_recognition -i vtest.avi -fr 500 -m SSD_GoogleNet_v2_fp32.xml -l SSD_GoogleNet_v2_fp32.bin -d CPU -t SSD -thresh 0.3 -pc
@@ -138,6 +139,36 @@ GPU:
 ```
 
 ## How it works
-<>
+Here's the high level steps that occur in the code:
+
+-Check arguments
+-Video pre-processing
+-Load model to the Inference Engine
+-Run Inference
+-Parse the results
+-Render the frame
+
+### Video pro-processing
+The video pre-processing takes the current frame, and resizes it using the ```cv2.resize()``` function, https://docs.opencv.org/3.0-beta/modules/imgproc/doc/geometric_transformations.html?highlight=resize#cv2.resize, 
+
+It also converts it to a planar format (by default it is in packed format).  Packed format is arraged like RGBRGBRGB, planar is arranged like RRRGGGBBB.
+
+This format is required by the Inference Engine because that is the format used by the Intel(r) Math Kernel Library (MKL).  If you want to know more see  
+https://software.intel.com/en-us/ipp-dev-reference-pixel-and-planar-image-formats
+and
+https://software.intel.com/en-us/ipp-dev-guide-channel-and-planar-image-data-layouts
+
+### Load model to the Inference Engine
+There are three steps to loading a model into the Inference Engine:
+1. Load plugin
+This is done by 
+
+2. Read network
+
+3. Load model into plugin
+
+
+### A little info on what Model Optimizer is doing
+
 
 
