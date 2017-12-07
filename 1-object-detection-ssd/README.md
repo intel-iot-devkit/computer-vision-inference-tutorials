@@ -46,12 +46,12 @@ make install
 The code is localed in ```main.cpp``` in the same folder as this README.
 
 ### Running the application
-Run this command in the `/bin/intel64/Release``` folder:
+Run this command in the `/bin/intel64/Release` folder:
 ```
 ./IE_tutorial_obj_recognition -i vtest.avi -fr 500 -m SSD_GoogleNet_v2_fp32.xml -l SSD_GoogleNet_v2_fp32.bin -d CPU -t SSD -thresh 0.3
 ```
 
-You should see a video play with people walking across and green bouding boxes around them:
+You should see a video play with people walking across and red bouding boxes around them:
 
 ![](images/expected_results_1.jpg)
 
@@ -113,7 +113,7 @@ If you change the threshold of the confidence level to 0.1, you'll see a lot mor
 ![](images/expected_results_3.jpg)
 	
 ### Checking performance data
-You can enable the output of performance data to the console by using the ```-pc``` flag.
+You can enable the output of performance data to the console by using the `-pc` flag.
 ```
 -pc
 ```
@@ -127,7 +127,7 @@ If you installed the optional OpenCL\* drivers for the GPU during the Intel® Co
 -d GPU
 ```
 
-To see the performance difference between the CPU and the GPU, add the -pc flag to the different runs using the ```-d CPU``` and ```-d GPU``` flags and compare.  
+To see the performance difference between the CPU and the GPU, add the -pc flag to the different runs using the `-d CPU` and `-d GPU` flags and compare.  
 
 CPU:
 ```
@@ -148,12 +148,12 @@ Here's the high level steps that occur in the code:
 -Parse the results
 -Render the frame
 
-### Video pro-processing
-The video pre-processing takes the current frame, and resizes it using the ```cv2.resize()``` function, https://docs.opencv.org/3.0-beta/modules/imgproc/doc/geometric_transformations.html?highlight=resize#cv2.resize, 
+### Video pre-processing
+The video pre-processing step takes the current frame, and resizes it using the `cv2.resize()` function, https://docs.opencv.org/3.0-beta/modules/imgproc/doc/geometric_transformations.html?highlight=resize#cv2.resize, 
 
-It also converts it to a planar format (by default it is in packed format).  Packed format is arraged like RGBRGBRGB, planar is arranged like RRRGGGBBB.
+It also converts it to a planar format (by default it is in packed format).  Packed format is arranged like RGBRGBRGB, planar is arranged like RRRGGGBBB.
 
-This format is required by the Inference Engine because that is the format used by the Intel(r) Math Kernel Library (MKL).  If you want to know more see  
+This format is required by the Inference Engine because that is the format used by the Intel® Math Kernel Library (Intel® MKL).  If you want to know more see  
 https://software.intel.com/en-us/ipp-dev-reference-pixel-and-planar-image-formats
 and
 https://software.intel.com/en-us/ipp-dev-guide-channel-and-planar-image-data-layouts
@@ -183,9 +183,3 @@ The weights are then added to the network
 **Note**: The .xml file contains the network, and the .bin contains the weights.
 
 3. Load model into plugin
-
-
-### A little info on what Model Optimizer is doing
-
-
-
