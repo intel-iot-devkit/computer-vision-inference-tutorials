@@ -25,44 +25,51 @@ If you run into issues, don't hesitate to contact us on the forum https://softwa
 
 ## Gather your materials
 * Intel® Computer Vision SDK Beta r3 installed.  See [Setup insructions for how to install](../0-setup/) 
-* Download the vtest.avi video from https://github.com/opencv/opencv/blob/master/samples/data/vtest.avi 
+* You'll be using this video: https://github.com/opencv/opencv/blob/master/samples/data/vtest.avi (instructions for download provided)
 	
 ## Setup
 1. If you have not already, install the Intel® Computer Vision SDK, see [Setup insructions for how to install](../0-setup/).
 
+2. Install SSD
+
+sudo su
+
 source /opt/intel/computer_vision_sdk_2017.0.139/bin/setupvars.sh
 
-install caffe (as root)
+python installSSDCaffe.py
 
-get model
-
-run MO
-
-make
-
-
-2. In the IE_Tutorial folder, create a build folder:
-```mkdir build && cd build```
-
-
-3. In that folder run makemake:  
-```
-make
-make install
-```
-4. You should see a new folder created at the same level of the build folder called 'bin' which contains the binary application.  Verify the application is there in ```/bin/intel64/Release/IE_tutorial_obj_recognition```  
-
-	Look for ```IE_tutorial_obj_recognition```
-
-5. Copy the vtest.avi video (https://github.com/opencv/opencv/blob/master/samples/data/vtest.avi) into the ```/Release``` folder.
+exit
 
 ## Get the Code
-The code is localed in ```main.cpp``` in the same folder as this README.
+### Clone this repository
+```
+git clone https://github.com/intel-iot-devkit/computer-vision-inference-tutorials.git
+```
+
+### Convert the model files to IR (.xml and .bin) files
+In the ```1-object-detection-sdd``` folder, run:
+
+./getModel.sh
+
+sudo su
+
+python runMO.py -w SSD_GoogleNetV2_caffe/SSD_GoogleNetV2.caffemodel -d SSD_GoogleNetV2_caffe/SSD_GoogleNetV2_Deploy.prototxt
+
+exit
+
+### Download the test video file
+```
+wget https://github.com/opencv/opencv/blob/master/samples/data/vtest.avi 
+```
 
 ### Running the application
-Run this command in the `/bin/intel64/Release` folder:
+First build:
 ```
-./IE_tutorial_obj_recognition -i vtest.avi -fr 500 -m SSD_GoogleNet_v2_fp32.xml -l SSD_GoogleNet_v2_fp32.bin -d CPU -t SSD -thresh 0.3
+make
+```
+Then run:
+```
+./IEobjectdetection -i vtest.avi -fr 500 -m artifacts/VGG_VOC0712_SSD_300x300_deploy/VGG_VOC0712_SSD_300x300_deploy.xml -d CPU -t SSD -l pascal_voc_classes.txt
 ```
 
 You should see a video play with people walking across and red bouding boxes around them:
@@ -100,7 +107,7 @@ They can be found in ```pascal_voc_classes.txt``` in this folder.
 
 Here is what the flags mean for running the application.  This can also be found by running:
 ```
-./IE_tutorial_obj_recognition -help
+./IEobjectdetection -help
 ```
 
     -h           Print a usage message
@@ -145,11 +152,11 @@ To see the performance difference between the CPU and the GPU, add the -pc flag 
 
 CPU:
 ```
-./IE_tutorial_obj_recognition -i vtest.avi -fr 500 -m SSD_GoogleNet_v2_fp32.xml -l SSD_GoogleNet_v2_fp32.bin -d CPU -t SSD -thresh 0.3 -pc
+./IEobjectdetection -i vtest.avi -fr 500 -m artifacts/VGG_VOC0712_SSD_300x300_deploy/VGG_VOC0712_SSD_300x300_deploy.xml -d CPU -t SSD -l pascal_voc_classes.txt -thresh 0.3 -pc
 ```
 GPU:
 ```
-./IE_tutorial_obj_recognition -i vtest.avi -fr 500 -m SSD_GoogleNet_v2_fp32.xml -l SSD_GoogleNet_v2_fp32.bin -d GPU -t SSD -thresh 0.3 -pc
+./IEobjectdetection -i vtest.avi -fr 500 -m artifacts/VGG_VOC0712_SSD_300x300_deploy/VGG_VOC0712_SSD_300x300_deploy.xml -d GPU -t SSD -l pascal_voc_classes.txt -thresh 0.3 -pc
 ```
 
 ## How it works
