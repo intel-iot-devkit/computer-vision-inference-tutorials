@@ -54,6 +54,6 @@ apt-get -y install build-essential cmake libopencv-dev checkinstall pkg-config y
 ### Try a sample inference application
 One of the main advantages of the Intel® CV SDK is the Intel® Deep Learning Inference Accelerator engine, which also allows you to take advantage of the Intel® integrated GPU if you want.  
 
-Run the [Object Detection using Inference and SDD tutorial](../1-object-detection-sdd).
+Run the [Object Detection using Inference and SDD tutorial](../1-object-detection-ssd).
 
 
