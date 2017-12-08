@@ -21,7 +21,9 @@
 <>
 
 ### Install Intel® CV SDK
-<>
+1. Go to https://software.seek.intel.com/computer-vision-software
+2. Register, then download the **Ubuntu* package**
+![](/images/download-page-1.jpg)
 
 #### Install OpenCL™ graphics driver (optional)
 ```
