@@ -183,3 +183,5 @@ The weights are then added to the network
 **Note**: The .xml file contains the network, and the .bin contains the weights.
 
 3. Load model into plugin
+
+### A little info on what Model Optimizer is doing
