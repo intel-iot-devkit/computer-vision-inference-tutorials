@@ -29,8 +29,22 @@ If you run into issues, don't hesitate to contact us on the forum https://softwa
 	
 ## Setup
 1. If you have not already, install the Intel® Computer Vision SDK, see [Setup insructions for how to install](../0-setup/).
+
+source /opt/intel/computer_vision_sdk_2017.0.139/bin/setupvars.sh
+
+install caffe (as root)
+
+get model
+
+run MO
+
+make
+
+
 2. In the IE_Tutorial folder, create a build folder:
 ```mkdir build && cd build```
+
+
 3. In that folder run makemake:  
 ```
 make

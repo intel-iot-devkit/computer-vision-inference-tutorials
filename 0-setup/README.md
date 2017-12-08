@@ -17,8 +17,10 @@
 	* No drivers for other GPUs installed, or libraries built with support for other GPUs **HOW TO CHECK?** 
 	
 ## Setup
-### Run pre-install script
-<>
+### Install OpenCL Runtime Package
+```
+
+
 
 ### Install Intel® CV SDK
 1. Go to https://software.seek.intel.com/computer-vision-software
@@ -26,20 +28,7 @@
 ![](images/download-page-1.jpg)
 3. 
 
-#### Install OpenCL™ graphics driver (optional)
-```
-/opt/intel/computer_vision_sdk_2017.0.139/install_dependencies/install_OCL_driver.sh –install
-reboot
-```  
 
-In order to run on the GPU, we must ensure the OpenCL™ driver is installed ands works properly.  
-
-The script patches and recompiles Linux Kernel
-Takes ~30-40mins
-
-IMPORTANT NOTE:
-After an installation you need to reboot to 4.7.0.intel.r5.0 kernel
-**HOW TO REBOOT TO THAT KERNEL?**
 
 ### Run post-install script
 <>
