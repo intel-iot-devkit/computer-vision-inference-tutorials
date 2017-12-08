@@ -24,6 +24,7 @@
 1. Go to https://software.seek.intel.com/computer-vision-software
 2. Register, then download the __Ubuntu* package__
 ![](images/download-page-1.jpg)
+3. 
 
 #### Install OpenCL™ graphics driver (optional)
 ```
