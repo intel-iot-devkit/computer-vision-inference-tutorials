@@ -19,29 +19,41 @@
 ## Setup
 ### Install OpenCL Runtime Package
 ```
+wget http://registrationcenter-download.intel.com/akdlm/irc_nas/11396/SRB5.0_linux64.zip
 
+unzip SRB5.0_linux64.zip -d SRB5.0_linux64
 
+cd SRB5.0_linux64
+
+sudo apt-get update
+sudo apt-get install xz-utils
+mkdir intel-opencl
+tar -C intel-opencl -Jxf intel-opencl-r5.0-63503.x86_64.tar.xz
+tar -C intel-opencl -Jxf intel-opencl-devel-r5.0-63503.x86_64.tar.xz
+tar -C intel-opencl -Jxf intel-opencl-cpu-r5.0-63503.x86_64.tar.xz
+sudo cp -R intel-opencl/* /
+sudo ldconfig
+```
+
+### Install required dependencies:
+```
+apt-get update
+apt-get -y install build-essential cmake libopencv-dev checkinstall pkg-config yasm libjpeg-dev curl imagemagick gedit mplayer
+```
 
 ### Install Intel® CV SDK
 1. Go to https://software.seek.intel.com/computer-vision-software
 2. Register, then download the __Ubuntu* package__
 ![](images/download-page-1.jpg)
-3. 
-
-
-
-### Run post-install script
-<>
+3. Unzip it
+4. Run through the installation wizard
+```
+./install_GUI.sh
+```
 
 ### Try a sample inference application
 One of the main advantages of the Intel® CV SDK is the Intel® Deep Learning Inference Accelerator engine, which also allows you to take advantage of the Intel® integrated GPU if you want.  
 
 Go to https://github.com/intel-iot-devkit/computer-vision-inference-tutorials/tree/master/1-object-detection-sdd to run the Object Detection using Inference and SDD tutorial.
-
-
-## Get the Code
-<>
-
-## How it works
 
 
