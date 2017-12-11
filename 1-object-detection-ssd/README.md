@@ -206,3 +206,9 @@ The weights are then added to the network
 3. Load model into plugin
 
 ### A little info on what Model Optimizer is doing
+
+
+### HAAR ped detection
+
+### Camera input
+
