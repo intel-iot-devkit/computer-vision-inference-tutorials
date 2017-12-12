@@ -50,7 +50,7 @@ After installation, you can run the python script again for a basic test that th
 python VAinstaller.py --syscheck
 ```
 You should see something similar to:
-![](images/sys-check-1.jpg)
+![](images/sys-check-2.jpg)
 
 ### Try a Sample Application Using the Inference Engine
 One of the main advantages of the Intel® CV SDK is the Inference Engine, which also allows you to take advantage of the Intel® integrated GPU.  
