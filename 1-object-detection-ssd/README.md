@@ -19,7 +19,7 @@ This tutorial will walk you through the basics of using the Deep Learning Deploy
 If you have not already, install the Intel® Computer Vision SDK, see [Setup insructions for how to install](../0-setup/).
 
 ## Get the code
-### Clone the repository
+### Clone this repository
 ```
 git clone https://github.com/intel-iot-devkit/computer-vision-inference-tutorials.git
 ```

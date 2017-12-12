@@ -17,6 +17,12 @@
 	* No discrete graphics card installed (required by OpenCL™)
 	* No drivers for other GPUs installed, or libraries built with support for other GPUs 
 
+## Get the code
+### Clone this repository
+```
+git clone https://github.com/intel-iot-devkit/computer-vision-inference-tutorials.git
+```
+	
 ## Check your system requirements
 This script will check your system for required hardware and software before installation.
 ```
