@@ -16,17 +16,7 @@ This tutorial will walk you through the basics of using the Deep Learning Deploy
 * You'll be using this video: https://github.com/opencv/opencv/blob/master/samples/data/vtest.avi (instructions for download provided)
 	
 ## Setup
-1. If you have not already, install the Intel® Computer Vision SDK, see [Setup insructions for how to install](../0-setup/).
-
-2. Install Single Shot MultiBox Detector (SSD) 
-
-sudo su
-
-source /opt/intel/computer_vision_sdk_2017.0.139/bin/setupvars.sh
-
-python installSSDCaffe.py
-
-exit
+If you have not already, install the Intel® Computer Vision SDK, see [Setup insructions for how to install](../0-setup/).
 
 ## Get the code
 ### Clone the repository
@@ -34,9 +24,21 @@ exit
 git clone https://github.com/intel-iot-devkit/computer-vision-inference-tutorials.git
 ```
 
-## Generate the .bin and .xml (IR files) needed for the Inference Engine
-In the ```1-object-detection-sdd``` folder, run:
+### Install Single Shot MultiBox Detector (SSD) 
+From the directory `computer-vision-inference-tutorials/1-object-detection-ssd` type in a terminal:
+```
+sudo su
 
+source /opt/intel/computer_vision_sdk_2017.1.163/bin/setupvars.sh
+
+python installSSDCaffe.py
+
+exit
+```
+## Generate the .bin and .xml (IR files) for the Inference Engine
+In the `1-object-detection-sdd` folder, run:
+
+```
 ./getModel.sh
 
 sudo su
@@ -44,6 +46,7 @@ sudo su
 python runMO.py -w SSD_GoogleNetV2_caffe/SSD_GoogleNetV2.caffemodel -d SSD_GoogleNetV2_caffe/SSD_GoogleNetV2_Deploy.prototxt
 
 exit
+```
 
 ### Download the test video file
 ```
@@ -164,12 +167,12 @@ If you run into issues, don't hesitate to contact us on the forum https://softwa
 
 ### High level steps in the code:
 
--Check arguments
--Video pre-processing
--Load model to the Inference Engine
--Run Inference
--Parse the results
--Render the frame
+- Check arguments
+- Video pre-processing
+- Load model to the Inference Engine
+- Run Inference
+- Parse the results
+- Render the frame
 
 ### Video pre-processing
 The video pre-processing step takes the current frame, and resizes it using the `cv2.resize()` function, https://docs.opencv.org/3.0-beta/modules/imgproc/doc/geometric_transformations.html?highlight=resize#cv2.resize, 
