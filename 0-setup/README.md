@@ -27,9 +27,9 @@ You should see something similar to:
 
 ## Install OpenCL Runtime Package
 In order to run inference on the GPU, you need to first install the runtime package.  This script is made for Ubuntu 16.04.2. 
-
+```
 python VAinstaller.py --install
-
+```
 <screenshot>
 
 ## Install Intel® CV SDK
@@ -46,8 +46,9 @@ python VAinstaller.py --install
 ### Verify Intel® CV SDK Installation
 After installation, you can run the python script again for a basic test that the installation was successful.
 
+```
 python VAinstaller.py --syscheck
-
+```
 You should see something similar to:
 ![](images/sys-check-1.jpg)
 
