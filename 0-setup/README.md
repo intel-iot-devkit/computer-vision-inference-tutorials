@@ -34,7 +34,9 @@ python VAinstaller.py --install
 
 ## Install Intel® CV SDK
 1. Go to https://software.seek.intel.com/computer-vision-software
-2. Register, then download the __Ubuntu* package__
+2. Register, then wait for a confirmation email.  It can take *__several__* hours to get the email. So go take a break and come back once you're received the email. 
+![](images/email-confirmation.jpg)
+3. From the link of the download the __Ubuntu* package__
 ![](images/download-page-1.jpg)
 3. Unzip the contents (to a folder in your directory of choice)
 4. From the folder run through the installation wizard
@@ -52,7 +54,7 @@ python VAinstaller.py --syscheck
 You should see something similar to:
 ![](images/sys-check-2.jpg)
 
-### Try a Sample Application Using the Inference Engine
+## Try a Sample Application Using the Inference Engine
 One of the main advantages of the Intel® CV SDK is the Inference Engine, which also allows you to take advantage of the Intel® integrated GPU.  
 
 Run the [Object Detection using Inference and SSD tutorial](../1-object-detection-ssd).
