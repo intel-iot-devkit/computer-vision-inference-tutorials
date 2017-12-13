@@ -67,15 +67,15 @@ You should see something like:
 tar zxvf intel_cv_sdk_r3_2017.1.163.tgz
 ```
 
-5. From the ```cd intel_cv_sdk_r3_2017.1.163``` folder 
+5. In the cv sdk folder: 
 ```
 cd intel_cv_sdk_r3_2017.1.163/
 ```
-enter super user mode  
+Enter super user mode  
 ```
 sudo su
 ```
-then run the installation wizard  
+Then run the installation wizard  
 ```
 ./install_GUI.sh
 ```

@@ -213,4 +213,5 @@ The weights are then added to the network
 
 3. Load the model into the plugin
 
-
+## Next Steps
+Try converting a model using the Model Optimizer in the [Run Model Optimizer tutorial](../2-run-model-optimizer).
