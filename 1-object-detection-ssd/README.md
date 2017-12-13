@@ -111,7 +111,7 @@ If you change the threshold of the confidence level to 0.1, you'll see a lot mor
 
 ## Compare the performance of CPU vs GPU
 
-### Checking performance data
+### CPU
 You can enable the output of performance data to the console by using the `-pc` flag.
 ```
 -pc
@@ -122,7 +122,7 @@ You can enable the output of performance data to the console by using the `-pc` 
 You'll see the **Total time** it took to run.
 ![](images/cpu-pc-results.jpg)
 
-#### Running on the GPU
+### GPU
 Since you installed the OpenCL\* drivers to use the GPU, you can try running inference on the GPU and compare the difference.
 
 **It's best to open a new terminal window so you can compare the results**
@@ -202,10 +202,4 @@ The weights are then added to the network
 
 3. Load the model into the plugin
 
-### Role of Model Optimizer
-Model Optimizer is a command line tool that imports trained models...  optimizes a trained model
-
-### Haar-based pedestrian detection
-
-### Camera input
 
