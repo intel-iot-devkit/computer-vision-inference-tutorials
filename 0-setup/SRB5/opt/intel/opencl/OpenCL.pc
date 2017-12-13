@@ -1,0 +1,8 @@
+prefix=/opt/intel/opencl
+libdir=${prefix}
+includedir=${prefix}/include
+
+Name: OpenCL
+Description: Open Computing Language generic Installable Client Driver loader
+Libs: -L${libdir} -lOpenCL
+Cflags: -I${includedir}
