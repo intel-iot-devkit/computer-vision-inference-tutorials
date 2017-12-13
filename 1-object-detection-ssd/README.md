@@ -125,7 +125,7 @@ You'll see the **Total time** it took to run.
 ### GPU
 Since you installed the OpenCL\* drivers to use the GPU, you can try running inference on the GPU and compare the difference.
 
-**It's best to open a new terminal window so you can compare the results**
+**IT'S BEST TO OPEN A NEW TERMINAL WINDOW SO YOU CAN COMPARE THE RESULTS**
 
 Make sure to source your environment variables first:
 ```
@@ -180,8 +180,6 @@ There are three steps to loading a model into the Inference Engine: load the plu
 
 1. Load the plugin
 This is done by using the ```InferenceEnginePluginPtr _plugin()``` function.  
-
-**__WHERE IS THIS PLUGIN LOCATED??__**
 
 2. Read the network
 The network object is initialized
