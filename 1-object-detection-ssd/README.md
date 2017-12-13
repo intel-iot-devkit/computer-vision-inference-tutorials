@@ -1,63 +1,42 @@
 # Object Recognition using Inference and Single Shot MultiBox Detector (SSD)\*
 
-This tutorial will walk you through the basics of using the Deep Learning Deployment Toolkit's Inference Engine (included in the Intel® Computer Vision SDK). Here, inference is the process of using a trained neural network to infer meaning from data (e.g., images). In the code sample that follows, an image is fed to the Inference Engine (our trained neural network) which then outputs a result ( classification of an image). Inference can be done using various neural network architectures (AlexNet\*, GoogleNet\*, Single Shot MultiBox Detector (SSD)\*, etc.) but this example uses the Single Shot MultiBox Detector (SSD) topology which will be converted from a Caffe\* model.
+This tutorial will walk you through the basics of using the Deep Learning Deployment Toolkit's Inference Engine (included in the Intel® Computer Vision SDK). Here, inference is the process of using a trained neural network to infer meaning from data (e.g., images). In the code sample that follows, an image is fed to the Inference Engine (our trained neural network) which then outputs a result ( classification of an image). Inference can be done using various neural network architectures (AlexNet\*, GoogleNet\*, Single Shot MultiBox Detector (SSD)\*, etc.) but this example uses the Single Shot MultiBox Detector (SSD) topology.
+
+The Inference Engine requires that the model be converted to IR (Intermediate Representation) files.  In this example the IR files are provided for you.
 
 ### So what's different about running a neural network on the Inference Engine versus an out of the box framework?  
 * The Inference Engine optimizes inference allowing a user to run deep learning deployments *__significantly faster__* on Intel® architecture.
 * Inference can run on hardware other than the CPU such as the built-in Intel® GPU or Intel® FPGA accelerator card.
 
 ## What you’ll Learn
-  * How to generate the .bin and .xml (IR files) needed for the Inference Engine from a Caffe model
-  * Run the Inference Engine using the IR files in a C++ application
+  * Run the Inference Engine using provided IR files in a C++ application
   * Compare the performance of CPU vs GPU
 
 ## Gather your materials
 * Intel® Computer Vision SDK Beta r3 installed.  See [Setup insructions for how to install](../0-setup/) 
-* You'll be using this video: https://github.com/opencv/opencv/blob/master/samples/data/vtest.avi (instructions for download provided)
 	
 ## Setup
 If you have not already, install the Intel® Computer Vision SDK, see [Setup insructions for how to install](../0-setup/).
 
 ## Get the code
-### Clone this repository
+You should have already cloned this repository, but if not get the code using
 ```
 git clone https://github.com/intel-iot-devkit/computer-vision-inference-tutorials.git
 ```
 
-### Install Single Shot MultiBox Detector (SSD) 
-From the `computer-vision-inference-tutorials/1-object-detection-ssd` directory type in a terminal:
-```
-sudo su
-
-source /opt/intel/computer_vision_sdk_2017.1.163/bin/setupvars.sh
-
-python installSSDCaffe.py
-
-exit
-```
-This should take about 5 minutes.
-
-## Generate the .bin and .xml (IR files) for the Inference Engine
-In the `1-object-detection-sdd` folder, run:
-
-```
-./getModel.sh
-
-sudo su
-
-python runMO.py -w SSD_GoogleNetV2_caffe/SSD_GoogleNetV2.caffemodel -d SSD_GoogleNetV2_caffe/SSD_GoogleNetV2_Deploy.prototxt
-
-exit
-```
-
-### Download the test video file
-```
-wget https://github.com/opencv/opencv/blob/master/samples/data/vtest.avi 
-```
-
 ### Run the Inference Engine using the IR files in a C++ application
 
-First build:
+First get into the ```1-object-detection-ssd``` directory
+```
+cd 1-object-detection-ssd
+```
+
+First set the paths:
+```
+source /opt/intel/computer_vision_sdk_2017.1.163/bin/setupvars.sh
+```
+
+Then build:
 ```
 make
 ```

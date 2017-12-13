@@ -36,7 +36,7 @@ python VAinstaller.py --syscheck
 You should see something similar to:
 ![](images/sys-check-1.jpg)
 
-Where there is an *__[OK]__* for each of the following:
+Where there is an **[OK]** for each of the following:
 ```Hardware readiness checks:```  
 **[OK]**  
 ```OS readiness checks:```  
@@ -44,7 +44,7 @@ Where there is an *__[OK]__* for each of the following:
 ```Check OpenCL Install:```  
 **[OK]**  
 
-If you don't see *__[OK]__* for all three of these, then your system in incompatible with the CV SDK.
+If you don't see **[OK]** for all three of these, then your system in incompatible with the CV SDK.
 
 ## Install OpenCL Runtime Package
 In order to run inference on the GPU, you need to first install the runtime package. This script installs the OpenCL runtime package, as well as some package dependencies required by the CV SDK. While still root user run:
