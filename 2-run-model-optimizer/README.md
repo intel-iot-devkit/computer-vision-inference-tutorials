@@ -40,7 +40,6 @@ source /opt/intel/computer_vision_sdk_2017.1.163/bin/setupvars.sh
 
 python runMO.py -w SSD_GoogleNetV2.caffemodel -d SSD_GoogleNetV2_Deploy.prototxt
 
-exit
 ```
 ### Verify the creation of the IR files in the ```/artifacts/VGG_VOC0712_SSD_300x300_deploy``` folder.
 ```
@@ -54,6 +53,9 @@ and
 were created in that directory
 
 ![](images/mo-output.jpg)
+
+Make sure to exit super user mode before continuing
+```exit```
 
 ### Run the Inference Engine using the IR files in a C++ application
 **Make sure to exit super user mode before building the application**
@@ -70,12 +72,7 @@ Then run:
 
 *Note* the cars_768x768.avi video file is already included as part of this repository in the /videos folder 
 
-You should see a video play with people walking across and red bouding boxes around them:
+You should see a video play with cars passing by.
 
-![](images/expected_results_1.jpg)
-
-You should also see the output in the console showing the objects found and the confidence level.
-
-![](images/expected_results_2.jpg)
 
 
