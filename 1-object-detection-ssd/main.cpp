@@ -282,7 +282,7 @@ void printPerformanceCounters(const std::map<std::string, InferenceEngine::Infer
 
 		std::cout << std::setw(20) << std::left << "realTime: " + std::to_string(it->second.realTime_uSec);
 		std::cout << std::setw(20) << std::left << " cpu: " + std::to_string(it->second.cpu_uSec);
-		std::cout << " type: " << it->second.layer_type << std::endl;
+		std::cout << std::endl;
 
 		if (it->second.realTime_uSec > 0) {
 			totalTime += it->second.realTime_uSec;
@@ -737,9 +737,9 @@ int main(int argc, char *argv[]) {
 			}
 
 			//uncomment to render results
-		//	cv::imshow("frame", resized[mb]);
-		//	if (waitKey(30) >= 0)
-		//		break;
+			cv::imshow("frame", resized[mb]);
+			if (waitKey(30) >= 0)
+				break;
 		}
 	}
 

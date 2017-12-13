@@ -434,7 +434,7 @@ static UNUSED void printPerformanceCounts(InferenceEngine::InferenceEnginePlugin
         }
         stream << std::setw(20) << std::left << "realTime: " + std::to_string(it->second.realTime_uSec);
         stream << std::setw(20) << std::left << " cpu: "  + std::to_string(it->second.cpu_uSec);
-        stream << " type: " << it->second.layer_type << std::endl;
+        stream << std::endl;
         if (it->second.realTime_uSec > 0) {
             totalTime += it->second.realTime_uSec;
         }
