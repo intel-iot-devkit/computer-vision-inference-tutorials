@@ -25,7 +25,7 @@ git clone https://github.com/intel-iot-devkit/computer-vision-inference-tutorial
 ```
 
 ### Install Single Shot MultiBox Detector (SSD) 
-From the directory `computer-vision-inference-tutorials/1-object-detection-ssd` type in a terminal:
+From the `computer-vision-inference-tutorials/1-object-detection-ssd` directory type in a terminal:
 ```
 sudo su
 
@@ -35,6 +35,8 @@ python installSSDCaffe.py
 
 exit
 ```
+This should take about 5 minutes.
+
 ## Generate the .bin and .xml (IR files) for the Inference Engine
 In the `1-object-detection-sdd` folder, run:
 
