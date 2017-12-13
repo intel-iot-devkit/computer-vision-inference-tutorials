@@ -26,19 +26,37 @@ git clone https://github.com/intel-iot-devkit/computer-vision-inference-tutorial
 ## Check your system requirements
 This script will check your system for required hardware and software before installation.
 ```
+cd computer-vision-inference-tutorials/0-setup
+
+sudo su
+
 python VAinstaller.py --syscheck
+
 ```
 You should see something similar to:
 ![](images/sys-check-1.jpg)
 
+Where there is an *__[OK]__* for each of the following:
+```Hardware readiness checks:```
+*__[OK]__*
+```OS readiness checks:```
+*__[OK]__*
+```Check OpenCL Install:```
+*__[OK]__*
+
+If you don't see *__[OK]__* for all three of these, then your system in incompatible with the CV SDK.
+
 ## Install OpenCL Runtime Package
-In order to run inference on the GPU, you need to first install the runtime package.  This script is made for Ubuntu 16.04.2. 
+In order to run inference on the GPU, you need to first install the runtime package.  This script is made for Ubuntu 16.04.2. While still root user run:
 ```
-sudo su
 python VAinstaller.py --install
 exit
 ```
-<screenshot>
+You should see something like:
+
+![](images/install-screen-1.jpg)
+
+This script installs the OpenCL runtime package, as well as some package dependencies required by the CV SDK.
 
 ## Install Intel® CV SDK
 1. Go to https://software.seek.intel.com/computer-vision-software
