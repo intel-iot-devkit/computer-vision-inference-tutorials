@@ -42,7 +42,7 @@ make
 ```
 Then run:
 ```
-./IEobjectdetection -i vtest.avi -fr 500 -m artifacts/VGG_VOC0712_SSD_300x300_deploy/VGG_VOC0712_SSD_300x300_deploy.xml -d CPU -t SSD -l pascal_voc_classes.txt
+./IEobjectdetection -i videos/vtest.avi -fr 500 -m SSD_GoogleNet_v2_fp32.xml -d CPU -t SSD -l pascal_voc_classes.txt
 ```
 
 You should see a video play with people walking across and red bouding boxes around them:
