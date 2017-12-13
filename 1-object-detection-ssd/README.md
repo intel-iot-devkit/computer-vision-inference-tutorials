@@ -42,7 +42,7 @@ make
 ```
 Then run:
 ```
-./IEobjectdetection -i videos/vtest.avi -fr 500 -m SSD_GoogleNet_v2_fp32.xml -d CPU -t SSD -l pascal_voc_classes.txt
+./IEobjectdetection -i videos/vtest.avi -fr 200 -m SSD_GoogleNet_v2_fp32.xml -d CPU -t SSD -l pascal_voc_classes.txt
 ```
 
 You should see a video play with people walking across and red bouding boxes around them:
@@ -53,7 +53,7 @@ You should also see the output in the console showing the objects found and the 
 
 ![](images/expected_results_2.jpg)
 
-Here is the mapping for the labels of the classification:
+Here is the mapping for the labels of the classification in the console:
 
 1 - plane  
 2 - bicycle  
@@ -103,6 +103,10 @@ If you change the threshold of the confidence level to 0.1, you'll see a lot mor
 ```
 -thresh 0.1
 ```
+```
+./IEobjectdetection -i videos/vtest.avi -fr 200 -m SSD_Googl
+eNet_v2_fp32.xml -d CPU -t SSD -l pascal_voc_classes.txt -thresh 0.1
+```
 
 ![](images/expected_results_3.jpg)
 
@@ -113,13 +117,28 @@ You can enable the output of performance data to the console by using the `-pc` 
 ```
 -pc
 ```
+```
+./IEobjectdetection -i videos/vtest.avi -fr 200 -m SSD_GoogleNet_v2_fp32.xml -d CPU -t SSD -l pascal_voc_classes.txt -pc
+```
+
 ![](images/expected_results_4.jpg)
 **FORMATTING IS INCORRECT**
 
 #### Running on the GPU
-If you installed the optional OpenCL\* drivers for the GPU during the Intel® Computer Vision SDK installation, you can try running inference on the GPU.
+Since you installed the OpenCL\* drivers to use the GPU, you can try running inference on the GPU.
+
+**It's best to open a new terminal window so you can compare the results**
+
+Make sure to source your environment variables first:
+```
+source /opt/intel/computer_vision_sdk_2017.1.163/bin/setupvars.sh
+```
+Using the GPU is set by this flag
 ```
 -d GPU
+```
+```
+./IEobjectdetection -i videos/vtest.avi -fr 200 -m SSD_GoogleNet_v2_fp32.xml -d GPU -t SSD -l pascal_voc_classes.txt -pc
 ```
 To see the performance difference between the CPU and the GPU, add the `-pc` flag to the different runs using the `-d CPU` and `-d GPU` flags and compare.  
 
