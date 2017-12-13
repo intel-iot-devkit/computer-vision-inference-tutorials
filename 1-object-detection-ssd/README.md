@@ -104,8 +104,7 @@ If you change the threshold of the confidence level to 0.1, you'll see a lot mor
 -thresh 0.1
 ```
 ```
-./IEobjectdetection -i videos/vtest.avi -fr 200 -m SSD_Googl
-eNet_v2_fp32.xml -d CPU -t SSD -l pascal_voc_classes.txt -thresh 0.1
+./IEobjectdetection -i videos/vtest.avi -fr 200 -m SSD_GoogleNet_v2_fp32.xml -d CPU -t SSD -l pascal_voc_classes.txt -thresh 0.1
 ```
 
 ![](images/expected_results_3.jpg)
@@ -120,12 +119,11 @@ You can enable the output of performance data to the console by using the `-pc` 
 ```
 ./IEobjectdetection -i videos/vtest.avi -fr 200 -m SSD_GoogleNet_v2_fp32.xml -d CPU -t SSD -l pascal_voc_classes.txt -pc
 ```
-
-![](images/expected_results_4.jpg)
-**FORMATTING IS INCORRECT**
+You'll see the **Total time** it took to run.
+![](images/cpu-pc-results.jpg)
 
 #### Running on the GPU
-Since you installed the OpenCL\* drivers to use the GPU, you can try running inference on the GPU.
+Since you installed the OpenCL\* drivers to use the GPU, you can try running inference on the GPU and compare the difference.
 
 **It's best to open a new terminal window so you can compare the results**
 
@@ -140,16 +138,9 @@ Using the GPU is set by this flag
 ```
 ./IEobjectdetection -i videos/vtest.avi -fr 200 -m SSD_GoogleNet_v2_fp32.xml -d GPU -t SSD -l pascal_voc_classes.txt -pc
 ```
-To see the performance difference between the CPU and the GPU, add the `-pc` flag to the different runs using the `-d CPU` and `-d GPU` flags and compare.  
 
-### CPU:
-```
-./IEobjectdetection -i vtest.avi -fr 500 -m artifacts/VGG_VOC0712_SSD_300x300_deploy/VGG_VOC0712_SSD_300x300_deploy.xml -d CPU -t SSD -l pascal_voc_classes.txt -thresh 0.3 -pc
-```
-### GPU:
-```
-./IEobjectdetection -i vtest.avi -fr 500 -m artifacts/VGG_VOC0712_SSD_300x300_deploy/VGG_VOC0712_SSD_300x300_deploy.xml -d GPU -t SSD -l pascal_voc_classes.txt -thresh 0.3 -pc
-```
+You'll see the **Total time** is significantly lower when using the GPU.
+![](images/gpu-pc-results.jpg)
 
 ## How it works
 
