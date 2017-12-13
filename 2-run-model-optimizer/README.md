@@ -41,7 +41,9 @@ source /opt/intel/computer_vision_sdk_2017.1.163/bin/setupvars.sh
 python runMO.py -w SSD_GoogleNetV2.caffemodel -d SSD_GoogleNetV2_Deploy.prototxt
 
 ```
-### Verify the creation of the IR files in the ```/artifacts/VGG_VOC0712_SSD_300x300_deploy``` folder.
+### Verify the creation of the IR files 
+
+Look in the ```/artifacts/VGG_VOC0712_SSD_300x300_deploy``` folder.
 ```
 cd artifacts/VGG_VOC0712_SSD_300x300_deploy
 ls
