@@ -62,12 +62,12 @@ You should see something like:
 ![](images/email-confirmation.jpg)
 3. From the link in the email, download the __Ubuntu* package__
 ![](images/download-page-1.jpg)
-3. Unzip the contents (to a folder in your directory of choice)
+4. Unzip the contents (to a folder in your directory of choice)
 ```
 tar zxvf intel_cv_sdk_r3_2017.1.163.tgz
 ```
 
-4. From the folder 
+5. From the ```cd intel_cv_sdk_r3_2017.1.163``` folder 
 ```
 cd intel_cv_sdk_r3_2017.1.163/
 ```
