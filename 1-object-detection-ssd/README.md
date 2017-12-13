@@ -18,6 +18,13 @@ The Inference Engine requires that the model be converted to IR (Intermediate Re
 ## Setup
 If you have not already, install the Intel® Computer Vision SDK, see [Setup insructions for how to install](../0-setup/).
 
+You need to install libgflags-dev in order to build the sample:
+```
+sudo apt install libgflags-dev
+```
+
+
+
 ## Get the code
 You should have already cloned this repository, but if not get the code using
 ```
@@ -36,10 +43,16 @@ First set the paths:
 source /opt/intel/computer_vision_sdk_2017.1.163/bin/setupvars.sh
 ```
 
+You'll need to install
+
 Then build:
 ```
 make
 ```
+
+**Note:** If you get an error, make sure to install libgflags-dev:
+```sudo apt install libgflags-dev```
+
 Then run:
 ```
 ./IEobjectdetection -i videos/vtest.avi -fr 200 -m SSD_GoogleNet_v2_fp32.xml -d CPU -t SSD -l pascal_voc_classes.txt
