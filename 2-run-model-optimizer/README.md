@@ -72,9 +72,11 @@ Then run:
 ./IEobjectdetection -i videos/cars_768x768.avi -fr 200 -m artifacts/VGG_VOC0712_SSD_300x300_deploy/VGG_VOC0712_SSD_300x300_deploy.xml -d CPU -t SSD -l pascal_voc_classes.txt
 ```
 
-*Note* the cars_768x768.avi video file is already included as part of this repository in the /videos folder 
+**IF YOU GET ERRORS ON EITHER ```make``` OR RUNNING THE APPLICATION, THAT'S OK.  THE MODEL OPTIMIZER IS STILL IN BETA, SO ERRORS ARE EXPECTED, THIS IS MORE OF A CONCEPTUAL EXERCISE TO UNDERSTAND HOW THE MODEL OPTIMIZER FLOW WORKS**
 
-You should see a video play with cars passing by.
+
+
+
 
 
 
