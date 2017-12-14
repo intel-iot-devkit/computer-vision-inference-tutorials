@@ -18,7 +18,7 @@ The Inference Engine requires that the model be converted to IR (Intermediate Re
 ## Setup
 If you have not already, install the Intel® Computer Vision SDK, see [Setup insructions for how to install](../0-setup/).
 
-You need to install libgflags-dev for this code to compile:
+You need to install libgflags-dev for this code to compile:  
 ```sudo apt-get install libgflags-dev```
 
 ## Run the Inference Engine using the IR files in a C++ application
