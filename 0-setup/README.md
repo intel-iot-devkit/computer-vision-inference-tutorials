@@ -11,7 +11,7 @@
 
 **Note**: The generation number is embedded into the product name, right after the ‘i3’, ‘i5’, or ‘i7’.  For example, the Intel® Core™ i5-5200U processor and the Intel® Core™ i5-5675R processor are both 5th generation, and the Intel® Core™ i5-6600K processor and the Intel® Core™ i5 6360U processor are both 6th generation.
 
-  * Ubuntu\* 16.04.2 LTS
+  * Ubuntu\* 16.04.3 LTS
   * In order to run inference on the integrated GPU:  
 	* A processor with Intel® Iris® Pro graphics or HD Graphics 
 	* No discrete graphics card installed (required by OpenCL™)
