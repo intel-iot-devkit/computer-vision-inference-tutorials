@@ -71,7 +71,7 @@ tar zxvf intel_cv_sdk_ubuntu_r3_2017.1.163.tgz
 
 5. In the cv sdk folder: 
 ```
-cd intel_cv_sdk_r3_2017.1.163/
+cd intel_cv_sdk_ubuntu_r3_2017.1.163/
 ```
 Enter super user mode  
 ```
