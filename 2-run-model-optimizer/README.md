@@ -53,6 +53,10 @@ were created in that directory
 Make sure to exit super user mode before continuing
 ```exit```
 
+### Remove libgflags-dev
+The installation of Caffe causes a conflict with gflags, so remove the package you installed earlier by:
+```sudo apt-get remove libgflags-dev```
+
 ### Run the Inference Engine using the IR files in a C++ application
 **Make sure to exit super user mode before building the application**
 ```exit```
@@ -70,7 +74,7 @@ Then run:
 ./IEobjectdetection -i videos/cars_768x768.avi -fr 200 -m artifacts/VGG_VOC0712_SSD_300x300_deploy/VGG_VOC0712_SSD_300x300_deploy.xml -d CPU -t SSD -l pascal_voc_classes.txt
 ```
 
-**Note: If you get errors on either ```make``` or running the application, THAT'S OK. The model optimizer is still in beta, so errors are expected. This is more of a conceptual exercise to understand how the model optimizer flow works.**
+**Note:** If you get an error on ```make```, you may need to remove libgflags-dev, ```sudo apt-get remove libgflags-dev``` first.
 
 **Note:** the cars_768x768.avi video file is already included as part of this repository in the /videos folder 
 
