@@ -72,7 +72,7 @@ Then run:
 
 **Note: If you get errors on either ```make``` or running the application, THAT'S OK. The model optimizer is still in beta, so errors are expected. This is more of a conceptual exercise to understand how the model optimizer flow works.**
 
-*Note* the cars_768x768.avi video file is already included as part of this repository in the /videos folder 
+**Note:** the cars_768x768.avi video file is already included as part of this repository in the /videos folder 
 
 You should see a video play with cars passing by.
 
