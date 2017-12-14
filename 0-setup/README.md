@@ -15,7 +15,7 @@
   * In order to run inference on the integrated GPU:  
 	* A processor with Intel® Iris® Pro graphics or HD Graphics 
 	* No discrete graphics card installed (required by OpenCL™)
-	* No drivers for other GPUs installed, or libraries built with support for other GPUs 
+	* No drivers for other GPUs installed, or libraries built with support for other GPUs   
 		*Note:* If you're not sure that you meet all these requirements for the GPU, that's ok, we provide a script for you to check compatibility.
 	
 ## Get the code
