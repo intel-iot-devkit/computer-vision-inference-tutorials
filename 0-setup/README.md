@@ -96,6 +96,8 @@ exit
 You should see something similar to:
 ![](images/sys-check-2.jpg)
 
+**Note:** If you see an error that says: [ERROR] could not compile OpenCL test, the installation still may have worked, try proceeding with the next tutorial anyways.
+
 ## Try a Sample Application Using the Inference Engine
 One of the main advantages of the Intel® CV SDK is the Inference Engine, which also allows you to take advantage of the Intel® integrated GPU.  
 
