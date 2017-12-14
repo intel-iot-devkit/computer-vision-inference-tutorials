@@ -16,14 +16,15 @@
 	* A processor with Intel® Iris® Pro graphics or HD Graphics 
 	* No discrete graphics card installed (required by OpenCL™)
 	* No drivers for other GPUs installed, or libraries built with support for other GPUs   
-		*Note:* If you're not sure that you meet all these requirements for the GPU, that's ok, we provide a script for you to check compatibility.
+		**Note:** If you're not sure that you meet all these requirements for the GPU, that's ok, we provide a script for you to check compatibility.
 	
 ## Get the code
 ### Clone this repository
 ```
 git clone https://github.com/intel-iot-devkit/computer-vision-inference-tutorials.git
 ```
-	
+This will take a few minutes.
+
 ## Check your system requirements
 This script will check your system for required hardware and software before installation.
 ```
@@ -65,7 +66,7 @@ You should see something like:
 ![](images/download-page-1.jpg)
 4. Unzip the contents (to a folder in your directory of choice)
 ```
-tar zxvf intel_cv_sdk_r3_2017.1.163.tgz
+tar zxvf intel_cv_sdk__ubuntu_r3_2017.1.163.tgz
 ```
 
 5. In the cv sdk folder: 
