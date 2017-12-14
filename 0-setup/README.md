@@ -16,7 +16,8 @@
 	* A processor with Intel® Iris® Pro graphics or HD Graphics 
 	* No discrete graphics card installed (required by OpenCL™)
 	* No drivers for other GPUs installed, or libraries built with support for other GPUs 
-
+		*Note:* If you're not sure that you meet all these requirements for the GPU, that's ok, we provide a script for you to check compatibility.
+	
 ## Get the code
 ### Clone this repository
 ```
@@ -47,7 +48,7 @@ Where there is an **[OK]** for each of the following:
 If you don't see **[OK]** for all three of these, then your system in incompatible with the CV SDK.
 
 ## Install OpenCL Runtime Package
-In order to run inference on the GPU, you need to first install the runtime package. This script installs the OpenCL runtime package, as well as some package dependencies required by the CV SDK. While still root user run:
+In order to run inference on the GPU, you need to first install the OpenCL runtime package. This script installs the OpenCL runtime package, as well as some package dependencies required by the CV SDK. While still root user run:
 ```
 python VAinstaller.py --install
 exit
