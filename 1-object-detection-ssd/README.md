@@ -23,12 +23,6 @@ You need to install libgflags-dev in order to build the sample:
 sudo apt install libgflags-dev
 ```
 
-### Get the code
-You should have already cloned this repository, but if not get the code using
-```
-git clone https://github.com/intel-iot-devkit/computer-vision-inference-tutorials.git
-```
-
 ## Run the Inference Engine using the IR files in a C++ application
 
 First get into the ```1-object-detection-ssd``` directory
