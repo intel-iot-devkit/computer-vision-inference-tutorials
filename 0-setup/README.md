@@ -86,6 +86,8 @@ and follow the instructions.
 ### Verify Intel® CV SDK Installation
 After installation, you can run the python script again for a basic test that the installation was successful.
 
+Back in the ```/computer-vision-inference-tutorials/0-setup``` folder run:
+
 ```
 sudo su
 python VAinstaller.py --syscheck
