@@ -27,17 +27,14 @@ source /opt/intel/computer_vision_sdk_2017.1.163/bin/setupvars.sh
 
 python installSSDCaffe.py
 
-exit
 ```
 This should take somewhere between **10 and 20 minutes** depending on your system.
 
 ## Generate the .bin and .xml (IR files) for the Inference Engine
 The Caffe model files (SSD_GoogleNetV2_Deploy.prototxt and SSD_GoogleNetV2_Deploy.caffemodel) have already been provided for you in this folder.  You convert them to IR files by running the Model Optimizer using the runMO.py script.
+
+While still in super user mode run:
 ```
-sudo su
-
-source /opt/intel/computer_vision_sdk_2017.1.163/bin/setupvars.sh
-
 python runMO.py -w SSD_GoogleNetV2.caffemodel -d SSD_GoogleNetV2_Deploy.prototxt
 
 ```
@@ -49,9 +46,9 @@ cd artifacts/VGG_VOC0712_SSD_300x300_deploy
 ls
 ```
 Check that
-```SSD_GoogleNet_v2_fp32.xml```
+```VGG_VOC0712_SSD_300x300_deploy.xml```
 and
-```SSD_GoogleNet_v2_fp32.bin```
+```VGG_VOC0712_SSD_300x300_deploy.bin```
 were created in that directory
 
 ![](images/mo-output.jpg)
@@ -63,7 +60,11 @@ Make sure to exit super user mode before continuing
 **Make sure to exit super user mode before building the application**
 ```exit```
 
-First build:
+First setup the paths:
+```
+source /opt/intel/computer_vision_sdk_2017.1.163/bin/setupvars.sh 
+```
+Then build:
 ```
 make
 ```
@@ -72,11 +73,16 @@ Then run:
 ./IEobjectdetection -i videos/cars_768x768.avi -fr 200 -m artifacts/VGG_VOC0712_SSD_300x300_deploy/VGG_VOC0712_SSD_300x300_deploy.xml -d CPU -t SSD -l pascal_voc_classes.txt
 ```
 
-**If you get errors on either ```make``` or running the application, THAT'S OK. The model optimizer is still in beta, so errors are expected.  This is more of a conceptual exercise to understand how the model optimizer flow works.**
+*Note* the cars_768x768.avi video file is already included as part of this repository in the /videos folder 
 
+You should see a video play with cars passing by.
 
+![](images/output-1.jpg)
 
-
-
+### Running with the GPU
+You can run the application with the GPU as well just like you did in the previous tutorial because the Model Optimizer makes the IR files compatible for both when possible.
+```
+./IEobjectdetection -i videos/cars_768x768.avi -fr 200 -m artifacts/VGG_VOC0712_SSD_300x300_deploy/VGG_VOC0712_SSD_300x300_deploy.xml -d GPU -t SSD -l pascal_voc_classes.txt
+```
 
 
