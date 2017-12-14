@@ -1,6 +1,6 @@
 # Object Recognition using Inference and Single Shot MultiBox Detector (SSD)\*
 
-This tutorial will walk you through the basics taking an existing model and converting it to IR (Intermediate Representation) files using the inference engine.
+This tutorial will walk you through the basics taking an existing model and converting it to IR (Intermediate Representation) files using Model Optimizer.
 
 ## What you’ll Learn
   * How to generate the .bin and .xml (IR files) needed for the Inference Engine from a Caffe model
@@ -28,7 +28,7 @@ python installSSDCaffe.py
 This should take somewhere between **10 and 20 minutes** depending on your system.
 
 ## Generate the .bin and .xml (IR files) for the Inference Engine
-The Caffe model files (SSD_GoogleNetV2_Deploy.prototxt and SSD_GoogleNetV2_Deploy.caffemodel) have already been provided for you in this folder.  You convert them to IR files by running the Model Optimizer using the runMO.py script.
+The Caffe model files (```SSD_GoogleNetV2_Deploy.prototxt``` and ```SSD_GoogleNetV2_Deploy.caffemodel```) have already been provided for you in this folder.  You will convert them to IR files by running the Model Optimizer using the runMO.py script.
 
 While still in super user mode run:
 ```
