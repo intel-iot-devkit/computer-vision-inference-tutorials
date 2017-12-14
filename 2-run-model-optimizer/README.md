@@ -2,9 +2,6 @@
 
 This tutorial will walk you through the basics taking an existing model and converting it to IR (Intermediate Representation) files using the inference engine.
 
-### Why are the IR files needed?
-
-
 ## What you’ll Learn
   * How to generate the .bin and .xml (IR files) needed for the Inference Engine from a Caffe model
   * Run the Inference Engine using the IR files in a C++ application
