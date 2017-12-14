@@ -66,7 +66,7 @@ You should see something like:
 ![](images/download-page-1.jpg)
 4. Unzip the contents (to a folder in your directory of choice)
 ```
-tar zxvf intel_cv_sdk__ubuntu_r3_2017.1.163.tgz
+tar zxvf intel_cv_sdk_ubuntu_r3_2017.1.163.tgz
 ```
 
 5. In the cv sdk folder: 
