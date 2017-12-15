@@ -23,23 +23,15 @@ You need to install libgflags-dev for this code to compile:
 
 ## Run the Inference Engine using the IR files in a C++ application
 
-First get into the ```1-object-detection-ssd``` directory
+From the `1-object-detection-ssd` directory, set the environment variables:
 ```
 cd 1-object-detection-ssd
-```
-
-First set the paths:
-```
 source /opt/intel/computer_vision_sdk_2017.1.163/bin/setupvars.sh
 ```
-
-You'll need to install
-
-Then build:
+Then build the make file:
 ```
 make
 ```
-
 **Note:** If you get an error, make sure to install libgflags-dev:
 ```sudo apt-get install libgflags-dev```
 
@@ -47,16 +39,16 @@ Then run:
 ```
 ./IEobjectdetection -i videos/vtest.avi -fr 200 -m SSD_GoogleNet_v2_fp32.xml -d CPU -t SSD -l pascal_voc_classes.txt
 ```
-
-You should see a video play with people walking across and red bouding boxes around them:
+You should see a video play with people walking and red bounding boxes around them:
 
 ![](images/expected_results_1.jpg)
 
-You should also see the output in the console showing the objects found and the confidence level.
+You should also see output in a console showing the objects found with a confidence level.
 
 ![](images/expected_results_2.jpg)
 
-Here is the mapping for the labels of the classification in the console:
+### Mapping of lables to classification
+Here's the mapping of labels (1–20) to classification (bird, plane, person, etc.) from the console:
 
 1 - plane  
 2 - bicycle  
@@ -79,12 +71,10 @@ Here is the mapping for the labels of the classification in the console:
 19 - train  
 20 - monitor  
 
-They can be found in ```pascal_voc_classes.txt``` in this folder.
+The mapping can also be found as a text file `pascal_voc_classes.txt` in the `1-object-detection-ssd` directory.
 
-Here is what the flags mean for running the application.  This can also be found by running:
-```
-./IEobjectdetection -help
-```
+### Command line flags
+Below are the details of the flags included in the command line when running the application.  
 
     -h           Print a usage message
     -i <path>    Required. Path to input video file
@@ -96,25 +86,29 @@ Here is what the flags mean for running the application.  This can also be found
     -pc          Enables per-layer performance report
     -thresh <val>confidence threshold for bounding boxes 0-1
     -b <val>     Batch size
+    
+The flag details can also be found by running:
+```
+./IEobjectdetection -help
+```
 
-In this sample video, there are approximately 790 frames, so by setting the number of frames to 790 you'll see the whole video.
+### Frame flag
+The sample video has approximately 790 frames, so by setting the number of frames to 790 you'll see the whole video.
 ```
 -fr 790
 ```
 
-If you change the threshold of the confidence level to 0.1, you'll see a lot more bounding boxes around the people, but also many false ones.
-```
--thresh 0.1
-```
+### Threshhold flag
+You can modify the confidence level by adding a threshold flag `-thresh`. By changing the value to 0.1 `-thresh 0.1`, you'll see a lot more bounding boxes around the people, but also many false ones.
 ```
 ./IEobjectdetection -i videos/vtest.avi -fr 200 -m SSD_GoogleNet_v2_fp32.xml -d CPU -t SSD -l pascal_voc_classes.txt -thresh 0.1
 ```
-
 ![](images/expected_results_3.jpg)
 
 ## Compare the performance of CPU vs GPU
 
 ### CPU
+#### Performance flag
 You can enable the output of performance data to the console by using the `-pc` flag.
 ```
 -pc
@@ -126,7 +120,7 @@ You'll see the **Total time** it took to run.
 ![](images/cpu-pc-results.jpg)
 
 ### GPU
-Since you installed the OpenCL\* drivers to use the GPU, you can try running inference on the GPU and compare the difference.
+Since you installed the OpenCL\* drivers to use the GPU, try running inference on the GPU and compare the difference.
 
 **IT'S BEST TO OPEN A NEW TERMINAL WINDOW SO YOU CAN COMPARE THE RESULTS**
 
@@ -134,7 +128,8 @@ Make sure to source your environment variables first:
 ```
 source /opt/intel/computer_vision_sdk_2017.1.163/bin/setupvars.sh
 ```
-Using the GPU is set by this flag
+#### Device flag
+To use the GPU, change the device flag `-d` flag from CPU to GPU:
 ```
 -d GPU
 ```
