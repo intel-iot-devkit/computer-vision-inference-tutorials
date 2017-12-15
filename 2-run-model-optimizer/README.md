@@ -1,4 +1,4 @@
-# Object Recognition using Inference and Single Shot MultiBox Detector (SSD)\*
+# Use Model Optimizer to convert and optimize a trained model 
 
 This tutorial will walk you through the basics taking an existing model and converting it to IR (Intermediate Representation) files using Model Optimizer.
 
