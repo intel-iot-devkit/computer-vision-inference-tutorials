@@ -58,7 +58,6 @@ sudo su
 python runMO.py -w SSD_GoogleNetV2_caffe/SSD_GoogleNetV2.caffemodel -d SSD_GoogleNetV2_caffe/SSD_GoogleNetV2_Deploy.prototxt
 ```
 ### Verify the creation of the IR files 
-
 Look in the ```/artifacts/VGG_VOC0712_SSD_300x300_deploy``` folder.
 ```
 cd artifacts/VGG_VOC0712_SSD_300x300_deploy
@@ -232,10 +231,10 @@ https://software.intel.com/en-us/ipp-dev-guide-channel-and-planar-image-data-lay
 ### Loading a model into the Inference Engine
 There are three steps to loading a model into the Inference Engine: load the plugin, read the network and load the model into the plugin
 
-1. Load the plugin
+#### Load the plugin
 This is done by using the ```InferenceEnginePluginPtr _plugin()``` function.  
 
-2. Read the network
+#### Read the network
 The network object is initialized
 
 ```InferenceEngine::CNNNetReader network;```
@@ -252,8 +251,7 @@ The weights are then added to the network
 
 **Note**: The .xml file contains the network, and the .bin file contains the weights.
 
-3. Load the model into the plugin
-
+#### Load the model into the plugin
 Refer to the code for how to setup the input and blobs. 
 
 ### Run inference
