@@ -266,5 +266,5 @@ For more information on how to generate IR files from Caffe and TensorFlow model
 
 https://software.intel.com/en-us/inference-trained-models-with-intel-dl-deployment-toolkit-beta-2017r3
 
-If you run into issues, don't hesitate to ask on our [forum](https://software.intel.com/en-us/forums/computer-vision):
+If you run into issues, don't hesitate to ask on our [forum](https://software.intel.com/en-us/forums/computer-vision)
 
