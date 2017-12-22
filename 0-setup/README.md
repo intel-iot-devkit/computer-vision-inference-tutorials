@@ -51,7 +51,7 @@ If you've already registered for the CV SDK before, you should get access to dow
 ![](images/email-confirmation.jpg)  
 
 3. From the link in the email, download the __Ubuntu* package__
-![](images/download-page-1.jpg)
+![](images/download-page-1.jpg)  
 
 4. Unzip the contents (to a folder in your directory of choice)
 ```
