@@ -100,9 +100,7 @@ To run:
 ./IEobjectdetection -i videos/vtest.avi -fr 200 -m artifacts/VGG_VOC0712_SSD_300x300_deploy/VGG_VOC0712_SSD_300x300_deploy.xml -d CPU -t SSD -l pascal_voc_classes.txt
 ```
 
-You should see a video play with people walking across and red bouding boxes around them:
-
-![](images/expected_results_1.jpg)
+You should see a video play with people walking across and red bouding boxes around them.
 
 You should also see the output in the console showing the objects found and the confidence level.
 
@@ -161,8 +159,6 @@ If you change the threshold of the confidence level to 0.1, you'll see a lot mor
 ```
 ./IEobjectdetection -i videos/vtest.avi -fr 200 -m SSD_GoogleNet_v2_fp32.xml -d CPU -t SSD -l pascal_voc_classes.txt -thresh 0.1
 ```
-
-![](images/expected_results_3.jpg)
 
 ## Compare the performance of CPU vs GPU
 
