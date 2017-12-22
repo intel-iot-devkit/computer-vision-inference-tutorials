@@ -1,15 +1,16 @@
 # Object Recognition using Inference and Single Shot MultiBox Detector (SSD)\*
 
-This tutorial will walk you through the basics of using the Deep Learning Deployment Toolkit's Inference Engine (included in the Intel® Computer Vision SDK). Here, inference is the process of using a trained neural network to infer meaning from data (e.g., images). In the code sample that follows, an image is fed to the Inference Engine (our trained neural network) which then outputs a result ( classification of an image). Inference can be done using various neural network architectures (AlexNet\*, GoogleNet\*, Single Shot MultiBox Detector (SSD)\*, etc.) but this example uses the Single Shot MultiBox Detector (SSD) topology.
+This tutorial will walk you through the basics of using the Deep Learning Deployment Toolkit's Inference Engine (included in the Intel® Computer Vision SDK). Here, inference is the process of using a trained neural network to infer meaning from data (e.g., images). In the code sample that follows, a video (frame by frame) is fed to the Inference Engine (our trained neural network) which then outputs a result (classification of an image). Inference can be done using various neural network architectures (AlexNet\*, GoogleNet\*, Single Shot MultiBox Detector (SSD)\*, etc.) but this example uses the Single Shot MultiBox Detector (SSD) topology.
 
-The Inference Engine requires that the model be converted to IR (Intermediate Representation) files.  In this example the IR files are provided for you.
+The Inference Engine requires that the model be converted to IR (Intermediate Representation) files.  This tutorial will walk you through the basics taking an existing model (GoogleNet) and converting it to IR (Intermediate Representation) files using the Model Optimizer.
 
 ### So what's different about running a neural network on the Inference Engine versus an out of the box framework?  
-* The Inference Engine optimizes inference allowing a user to run deep learning deployments *__significantly faster__* on Intel® architecture.
+* The Inference Engine optimizes inference allowing a user to run deep learning deployments *__significantly faster__* on Intel® architecture.  For more information on the performanc on Intel Processor Graphics see ![this article](https://software.intel.com/en-us/articles/accelerating-deep-learning-inference-with-intel-processor-graphics)
 * Inference can run on hardware other than the CPU such as the built-in Intel® GPU or Intel® FPGA accelerator card.
 
 ## What you’ll Learn
-  * Run the Inference Engine using provided IR files in a C++ application
+  * How to generate the .bin and .xml (IR files) needed for the Inference Engine from a Caffe model
+  * Run the Inference Engine using the generated IR files in a C++ application
   * Compare the performance of CPU vs GPU
 
 ## Gather your materials
@@ -23,14 +24,13 @@ If you have not already, install the Intel® Computer Vision SDK, see [Setup ins
 ```
 git clone https://github.com/intel-iot-devkit/computer-vision-inference-tutorials.git
 ```
-This will take a few minutes.
 
 ## Install Caffe
-Caffe is required to convert a Caffe model using the Model Optimizer. This script is installing a version of Caffe that is compatible with the Model Optimizer.
+Caffe is required to convert a Caffe model using the Model Optimizer. This script will install a version of Caffe to the ```opt/intel/ssdcaffe``` folder that is compatible with the Model Optimizer.
 
-From the `computer-vision-inference-tutorials/2-run-model-optimizer` directory 
+From the `computer-vision-inference-tutorials/1-run-model-optimizer` directory 
 ```
-cd 2-run-model-optimizer
+cd 1-run-model-optimizer
 ````
 Enter in a terminal:
 ```
@@ -39,17 +39,23 @@ sudo su
 source /opt/intel/computer_vision_sdk_2017.1.163/bin/setupvars.sh
 
 python installSSDCaffe.py
-
+exit
 ```
 This should take somewhere between **10 and 20 minutes** depending on your system.
 
 ## Generate the .bin and .xml (IR files) for the Inference Engine
-The Caffe model files (```SSD_GoogleNetV2_Deploy.prototxt``` and ```SSD_GoogleNetV2_Deploy.caffemodel```) have already been provided for you in this folder.  You will convert them to IR files by running the Model Optimizer using the runMO.py script.
+The Caffe model consists of two files: ```SSD_GoogleNetV2_Deploy.prototxt``` and ```SSD_GoogleNetV2_Deploy.caffemodel```. You will convert them to IR files by running the Model Optimizer using the runMO.py script.
 
-While still in super user mode run:
+First download the files:
 ```
-python runMO.py -w SSD_GoogleNetV2.caffemodel -d SSD_GoogleNetV2_Deploy.prototxt
+wget https://software.intel.com/file/609199/download -O SSD_GoogleNetV2_caffe.tgz &&
+mkdir SSD_GoogleNetV2_caffe && tar -xvzf SSD_GoogleNetV2_caffe.tgz -C SSD_GoogleNetV2_caffe
+```
 
+Go back into super user mode and run:
+```
+sudo su
+python runMO.py -w SSD_GoogleNetV2_caffe/SSD_GoogleNetV2.caffemodel -d SSD_GoogleNetV2_caffe/SSD_GoogleNetV2_Deploy.prototxt
 ```
 ### Verify the creation of the IR files 
 
@@ -69,18 +75,9 @@ were created in that directory
 Make sure to exit super user mode before continuing
 ```exit```
 
-### Remove libgflags-dev
-The installation of Caffe causes a conflict with gflags, so remove the package you installed earlier by:
-```sudo apt-get remove libgflags-dev```
-
 ### Run the Inference Engine using the IR files in a C++ application
 **Make sure to exit super user mode before building the application**
 ```exit```
-
-First get into the ```1-object-detection-ssd``` directory
-```
-cd 1-object-detection-ssd
-```
 
 First set the paths:
 ```
@@ -258,4 +255,9 @@ The weights are then added to the network
 3. Load the model into the plugin
 
 ## Next Steps
-Try converting a model using the Model Optimizer in the [Run Model Optimizer tutorial](../2-run-model-optimizer).
+For more information on how to generate IR files from Caffe and TensorFlow models see:
+
+https://software.intel.com/en-us/inference-trained-models-with-intel-dl-deployment-toolkit-beta-2017r3
+
+If you run into issues, don't hesitate to ask on our forum:
+https://software.intel.com/en-us/forums/computer-vision
