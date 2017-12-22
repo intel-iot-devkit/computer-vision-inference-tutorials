@@ -30,7 +30,7 @@ Caffe is required to convert a Caffe model using the Model Optimizer. This scrip
 
 From the `computer-vision-inference-tutorials/1-run-model-optimizer` directory 
 ```
-cd 1-run-model-optimizer
+cd computer-vision-inference-tutorials/1-run-model-optimizer
 ````
 Enter in a terminal:
 ```
@@ -48,8 +48,7 @@ The Caffe model consists of two files: ```SSD_GoogleNetV2_Deploy.prototxt``` and
 
 First download the files:
 ```
-wget https://software.intel.com/file/609199/download -O SSD_GoogleNetV2_caffe.tgz &&
-mkdir SSD_GoogleNetV2_caffe && tar -xvzf SSD_GoogleNetV2_caffe.tgz -C SSD_GoogleNetV2_caffe
+wget https://software.intel.com/file/609199/download -O SSD_GoogleNetV2_caffe.tgz && mkdir SSD_GoogleNetV2_caffe && tar -xvzf SSD_GoogleNetV2_caffe.tgz -C SSD_GoogleNetV2_caffe
 ```
 
 Go back into super user mode and run:
