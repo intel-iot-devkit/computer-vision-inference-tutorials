@@ -18,45 +18,11 @@
 	* No drivers for other GPUs installed, or libraries built with support for other GPUs   
 		**Note:** If you're not sure that you meet all these requirements for the GPU, that's ok, we provide a script for you to check compatibility.
 	
-## Get the code
-### Clone this repository
-```
-git clone https://github.com/intel-iot-devkit/computer-vision-inference-tutorials.git
-```
-This will take a few minutes.
-
-## Check your system requirements
-This script will check your system for required hardware and software before installation.
-```
-cd computer-vision-inference-tutorials/0-setup
-
-sudo su
-
-python VAinstaller.py --syscheck
-
-```
-You should see something similar to:
-![](images/sys-check-1.jpg)
-
-Where there is an **[OK]** for each of the following:
-```Hardware readiness checks:```  
-**[OK]**  
-```OS readiness checks:```  
-**[OK]**  
-```Check OpenCL Install:```  
-**[OK]**  
-
-If you don't see **[OK]** for all three of these, then your system in incompatible with the CV SDK.
-
 ## Install OpenCL Runtime Package
-In order to run inference on the GPU, you need to first install the OpenCL runtime package. This script installs the OpenCL runtime package, as well as some package dependencies required by the CV SDK. While still root user run:
+In order to run inference on the GPU, you need to first install the OpenCL runtime package. These commands install the OpenCL runtime package, as well as some package dependencies required by the CV SDK. 
 ```
-python VAinstaller.py --install
-exit
-```
-You should see something like:
 
-![](images/install-screen-1.jpg)
+```
 
 ## Install Intel® CV SDK
 1. Go to https://software.seek.intel.com/computer-vision-software
@@ -82,21 +48,6 @@ Then run the installation wizard
 ./install_GUI.sh
 ```
 and follow the instructions.
-
-### Verify Intel® CV SDK Installation
-After installation, you can run the python script again for a basic test that the installation was successful.
-
-Back in the ```/computer-vision-inference-tutorials/0-setup``` folder run:
-
-```
-sudo su
-python VAinstaller.py --syscheck
-exit
-```
-You should see something similar to:
-![](images/sys-check-2.jpg)
-
-**Note:** If you see an error that says: [ERROR] could not compile OpenCL test, the installation still may have worked, try proceeding with the next tutorial anyways.
 
 ## Try a Sample Application Using the Inference Engine
 One of the main advantages of the Intel® CV SDK is the Inference Engine, which also allows you to take advantage of the Intel® integrated GPU.  

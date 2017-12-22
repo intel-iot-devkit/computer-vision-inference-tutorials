@@ -14,11 +14,6 @@
 // limitations under the License.
 */
 
-/**
- * \brief The entry point for the Inference Engine object_detection sample application
- * \file object_detection_sample_ssd/main.cpp
- * \example object_detection_sample_ssd/main.cpp
- */
 #include <gflags/gflags.h>
 #include <algorithm>
 #include <functional>
@@ -69,8 +64,7 @@ static const char labels_message[] = "Required. Path to labels file.";
 static const char plugin_message[] = "Plugin name. (MKLDNNPlugin, clDNNPlugin) Force load specified plugin ";
 /// @brief message for assigning cnn calculation to device
 static const char target_device_message[] = "Infer target device (CPU or GPU)";
-/// @brief message for inference type
-static const char infer_type_message[] = "Infer type (SSD, YOLO, YOLO-tiny)";
+
 /// @brief message for performance counters
 static const char performance_counter_message[] = "Enables per-layer performance report";
 /// @brief message for performance counters
@@ -99,8 +93,6 @@ DEFINE_string(p, "", plugin_message);
 DEFINE_string(pp, DEFAULT_PATH_P, plugin_path_message);
 /// \brief device the target device to infer on <br>
 DEFINE_string(d, "", target_device_message);
-/// \brief device the target device to infer on <br>
-DEFINE_string(t, "", infer_type_message);
 /// \brief Enable per-layer performance report
 DEFINE_bool(pc, false, performance_counter_message);
 /// \brief Enable per-layer performance report
@@ -115,83 +107,82 @@ DEFINE_int32(fr, -1, frames_message);
  */
 static void showUsage()
 {
-	std::cout << std::endl;
-	std::cout << "IEclassification [OPTION]" << std::endl;
-	std::cout << "Options:" << std::endl;
-	std::cout << std::endl;
-	std::cout << "    -h           " << help_message << std::endl;
-	std::cout << "    -i <path>    " << image_message << std::endl;
-	std::cout << "    -fr <path>   " << frames_message << std::endl;
-	std::cout << "    -m <path>    " << model_message << std::endl;
-	std::cout << "    -l <path>    " << labels_message << std::endl;
-	std::cout << "    -d <device>  " << target_device_message << std::endl;
-	std::cout << "    -t <type>    " << infer_type_message << std::endl;
-	std::cout << "    -pc          " << performance_counter_message << std::endl;
-	std::cout << "    -thresh <val>" << threshold_message << std::endl;
-	std::cout << "    -b <val>     " << batch_message << std::endl;
+    std::cout << std::endl;
+    std::cout << "IEclassification [OPTION]" << std::endl;
+    std::cout << "Options:" << std::endl;
+    std::cout << std::endl;
+    std::cout << "    -h           " << help_message << std::endl;
+    std::cout << "    -i <path>    " << image_message << std::endl;
+    std::cout << "    -fr <path>   " << frames_message << std::endl;
+    std::cout << "    -m <path>    " << model_message << std::endl;
+    std::cout << "    -l <path>    " << labels_message << std::endl;
+    std::cout << "    -d <device>  " << target_device_message << std::endl;
+    std::cout << "    -pc          " << performance_counter_message << std::endl;
+    std::cout << "    -thresh <val>" << threshold_message << std::endl;
+    std::cout << "    -b <val>     " << batch_message << std::endl;
 }
 
 float overlap(float x1, float w1, float x2, float w2)
 {
-	float l1 = x1 - w1 / 2;
-	float l2 = x2 - w2 / 2;
-	float left = l1 > l2 ? l1 : l2;
-	float r1 = x1 + w1 / 2;
-	float r2 = x2 + w2 / 2;
-	float right = r1 < r2 ? r1 : r2;
-	return right - left;
+    float l1 = x1 - w1 / 2;
+    float l2 = x2 - w2 / 2;
+    float left = l1 > l2 ? l1 : l2;
+    float r1 = x1 + w1 / 2;
+    float r2 = x2 + w2 / 2;
+    float right = r1 < r2 ? r1 : r2;
+    return right - left;
 }
 
 float boxIntersection(DetectedObject a, DetectedObject b)
 {
-	float w = overlap(a.xmin, (a.xmax - a.xmin), b.xmin, (b.xmax - b.xmin));
-	float h = overlap(a.ymin, (a.ymax - a.ymin), b.ymin, (b.ymax - b.ymin));
+    float w = overlap(a.xmin, (a.xmax - a.xmin), b.xmin, (b.xmax - b.xmin));
+    float h = overlap(a.ymin, (a.ymax - a.ymin), b.ymin, (b.ymax - b.ymin));
 
     if (w < 0 || h < 0) {
         return 0;
     }
 
-	float area = w * h;
+    float area = w * h;
 
-	return area;
+    return area;
 }
 
 float boxUnion(DetectedObject a, DetectedObject b)
 {
-	float i = boxIntersection(a, b);
-	float u = (a.xmax - a.xmin) * (a.ymax - a.ymin) + (b.xmax - b.xmin) * (b.ymax - b.ymin) - i;
+    float i = boxIntersection(a, b);
+    float u = (a.xmax - a.xmin) * (a.ymax - a.ymin) + (b.xmax - b.xmin) * (b.ymax - b.ymin) - i;
 
-	return u;
+    return u;
 }
 
 float boxIoU(DetectedObject a, DetectedObject b)
 {
-	return boxIntersection(a, b) / boxUnion(a, b);
+    return boxIntersection(a, b) / boxUnion(a, b);
 }
 
 void doNMS(std::vector<DetectedObject>& objects, float thresh)
 {
-	int i, j;
-	for(i = 0; i < objects.size(); ++i){
-		int any = 0;
+    int i, j;
+    for(i = 0; i < objects.size(); ++i) {
+        int any = 0;
 
         any = any || (objects[i].objectType > 0);
 
-		if(!any) {
-			continue;
-		}
+        if(!any) {
+            continue;
+        }
 
-		for(j = i + 1; j < objects.size(); ++j) {
-			if (boxIoU(objects[i], objects[j]) > thresh) {
+        for(j = i + 1; j < objects.size(); ++j) {
+            if (boxIoU(objects[i], objects[j]) > thresh) {
                 if (objects[i].prob < objects[j].prob) {
                     objects[i].prob = 0;
                 }
                 else {
                     objects[j].prob = 0;
                 }
-			}
-		}
-	}
+            }
+        }
+    }
 }
 
 /**
@@ -201,58 +192,58 @@ void doNMS(std::vector<DetectedObject>& objects, float thresh)
  * @return a list of found boxes
  */
 std::vector < DetectedObject > yoloNetParseOutput(float *net_out,
-	int class_num,
-	int modelWidth,
-	int modelHeight,
-	float threshold
-)
+        int class_num,
+        int modelWidth,
+        int modelHeight,
+        float threshold
+                                                 )
 {
-	int C = 20;         // classes
-	int B = 2;          // bounding boxes
-	int S = 7;          // cell size
+    int C = 20;         // classes
+    int B = 2;          // bounding boxes
+    int S = 7;          // cell size
 
-	std::vector < DetectedObject > boxes;
-	std::vector < DetectedObject > boxes_result;
-	int SS = S * S;     // number of grid cells 7*7 = 49
-	// First 980 values correspons to probabilities for each of the 20 classes for each grid cell.
-	// These probabilities are conditioned on objects being present in each grid cell.
-	int prob_size = SS * C; // class probabilities 49 * 20 = 980
-	// The next 98 values are confidence scores for 2 bounding boxes predicted by each grid cells.
-	int conf_size = SS * B; // 49*2 = 98 confidences for each grid cell
+    std::vector < DetectedObject > boxes;
+    std::vector < DetectedObject > boxes_result;
+    int SS = S * S;     // number of grid cells 7*7 = 49
+    // First 980 values correspons to probabilities for each of the 20 classes for each grid cell.
+    // These probabilities are conditioned on objects being present in each grid cell.
+    int prob_size = SS * C; // class probabilities 49 * 20 = 980
+    // The next 98 values are confidence scores for 2 bounding boxes predicted by each grid cells.
+    int conf_size = SS * B; // 49*2 = 98 confidences for each grid cell
 
-	float *probs = &net_out[0];
-	float *confs = &net_out[prob_size];
-	float *cords = &net_out[prob_size + conf_size]; // 98*4 = 392 coords x, y, w, h
+    float *probs = &net_out[0];
+    float *confs = &net_out[prob_size];
+    float *cords = &net_out[prob_size + conf_size]; // 98*4 = 392 coords x, y, w, h
 
-	for (int grid = 0; grid < SS; grid++)
-	{
-		int row = grid / S;
-		int col = grid % S;
-		for (int b = 0; b < B; b++)
-		{
-			float conf = confs[(grid * B + b)];
-			float prob = probs[grid * C + class_num] * conf;
-			prob *= 3;  //TODO: probabilty is too low... check.
+    for (int grid = 0; grid < SS; grid++)
+    {
+        int row = grid / S;
+        int col = grid % S;
+        for (int b = 0; b < B; b++)
+        {
+            float conf = confs[(grid * B + b)];
+            float prob = probs[grid * C + class_num] * conf;
+            prob *= 3;  //TODO: probabilty is too low... check.
 
-			if (prob < threshold) continue;
+            if (prob < threshold) continue;
 
-			float xc = (cords[(grid * B + b) * 4 + 0] + col) / S;
-			float yc = (cords[(grid * B + b) * 4 + 1] + row) / S;
-			float w = pow(cords[(grid * B + b) * 4 + 2], 2);
-			float h = pow(cords[(grid * B + b) * 4 + 3], 2);
+            float xc = (cords[(grid * B + b) * 4 + 0] + col) / S;
+            float yc = (cords[(grid * B + b) * 4 + 1] + row) / S;
+            float w = pow(cords[(grid * B + b) * 4 + 2], 2);
+            float h = pow(cords[(grid * B + b) * 4 + 3], 2);
 
-			DetectedObject bx(class_num,
-				(xc - w / 2)*modelWidth,
-				(yc - h / 2)*modelHeight,
-				(xc + w / 2)*modelWidth,
-				(yc + h / 2)*modelHeight,
-				prob);
+            DetectedObject bx(class_num,
+                              (xc - w / 2)*modelWidth,
+                              (yc - h / 2)*modelHeight,
+                              (xc + w / 2)*modelWidth,
+                              (yc + h / 2)*modelHeight,
+                              prob);
 
-			boxes_result.push_back(bx);
-		}
-	}
+            boxes_result.push_back(bx);
+        }
+    }
 
-	return boxes_result;
+    return boxes_result;
 }
 
 /**
@@ -260,36 +251,36 @@ std::vector < DetectedObject > yoloNetParseOutput(float *net_out,
 * @param perfomanceMap - map of rerformance counters
 */
 void printPerformanceCounters(const std::map<std::string, InferenceEngine::InferenceEngineProfileInfo>& perfomanceMap) {
-	long long totalTime = 0;
+    long long totalTime = 0;
 
-	std::cout << std::endl << "Perfomance counts:" << std::endl << std::endl;
+    std::cout << std::endl << "Perfomance counts:" << std::endl << std::endl;
 
-	std::map<std::string, InferenceEngine::InferenceEngineProfileInfo>::const_iterator it;
+    std::map<std::string, InferenceEngine::InferenceEngineProfileInfo>::const_iterator it;
 
-	for (it = perfomanceMap.begin(); it != perfomanceMap.end(); ++it) {
-		std::cout << std::setw(30) << std::left << it->first + ":";
-		switch (it->second.status) {
-		case InferenceEngine::InferenceEngineProfileInfo::EXECUTED:
-			std::cout << std::setw(15) << std::left << "EXECUTED";
-			break;
-		case InferenceEngine::InferenceEngineProfileInfo::NOT_RUN:
-			std::cout << std::setw(15) << std::left << "NOT_RUN";
-			break;
-		case InferenceEngine::InferenceEngineProfileInfo::OPTIMIZED_OUT:
-			std::cout << std::setw(15) << std::left << "OPTIMIZED_OUT";
-			break;
-		}
+    for (it = perfomanceMap.begin(); it != perfomanceMap.end(); ++it) {
+        std::cout << std::setw(30) << std::left << it->first + ":";
+        switch (it->second.status) {
+        case InferenceEngine::InferenceEngineProfileInfo::EXECUTED:
+            std::cout << std::setw(15) << std::left << "EXECUTED";
+            break;
+        case InferenceEngine::InferenceEngineProfileInfo::NOT_RUN:
+            std::cout << std::setw(15) << std::left << "NOT_RUN";
+            break;
+        case InferenceEngine::InferenceEngineProfileInfo::OPTIMIZED_OUT:
+            std::cout << std::setw(15) << std::left << "OPTIMIZED_OUT";
+            break;
+        }
 
-		std::cout << std::setw(20) << std::left << "realTime: " + std::to_string(it->second.realTime_uSec);
-		std::cout << std::setw(20) << std::left << " cpu: " + std::to_string(it->second.cpu_uSec);
-		std::cout << std::endl;
+        std::cout << std::setw(20) << std::left << "realTime: " + std::to_string(it->second.realTime_uSec);
+        std::cout << std::setw(20) << std::left << " cpu: " + std::to_string(it->second.cpu_uSec);
+        std::cout << std::endl;
 
-		if (it->second.realTime_uSec > 0) {
-			totalTime += it->second.realTime_uSec;
-		}
-	}
+        if (it->second.realTime_uSec > 0) {
+            totalTime += it->second.realTime_uSec;
+        }
+    }
 
-	std::cout << std::setw(20) << std::left << "Total time: " + std::to_string(totalTime) << " milliseconds" << std::endl;
+    std::cout << std::setw(20) << std::left << "Total time: " + std::to_string(totalTime) << " milliseconds" << std::endl;
 }
 
 /**
@@ -299,453 +290,412 @@ void printPerformanceCounters(const std::map<std::string, InferenceEngine::Infer
  * @return 0 if all good
  */
 int main(int argc, char *argv[]) {
-	// ----------------
-	// Parse command line parameters
-	// ----------------
+    // ----------------
+    // Parse command line parameters
+    // ----------------
 
-	gflags::ParseCommandLineNonHelpFlags(&argc, &argv, true);
+    gflags::ParseCommandLineNonHelpFlags(&argc, &argv, true);
 
-	if (FLAGS_h) {
-		showUsage();
-		return 1;
-	}
+    if (FLAGS_h) {
+        showUsage();
+        return 1;
+    }
 
-	if (FLAGS_l.empty()) {
-		std::cout << "ERROR: labels file path not set" << std::endl;
-		showUsage();
-		return 1;
-	}
+    if (FLAGS_l.empty()) {
+        std::cout << "ERROR: labels file path not set" << std::endl;
+        showUsage();
+        return 1;
+    }
 
-	bool noPluginAndBadDevice = FLAGS_p.empty() && FLAGS_d.compare("CPU")
-		&& FLAGS_d.compare("GPU");
-	if (FLAGS_i.empty() || FLAGS_m.empty() || noPluginAndBadDevice) {
-		if (noPluginAndBadDevice)
-			std::cout << "ERROR: device is not supported" << std::endl;
-		if (FLAGS_m.empty())
-			std::cout << "ERROR: file with model - not set" << std::endl;
-		if (FLAGS_i.empty())
-			std::cout << "ERROR: image(s) for inference - not set" << std::endl;
-		showUsage();
-		return 2;
-	}
+    bool noPluginAndBadDevice = FLAGS_p.empty() && FLAGS_d.compare("CPU")
+                                && FLAGS_d.compare("GPU");
+    if (FLAGS_i.empty() || FLAGS_m.empty() || noPluginAndBadDevice) {
+        if (noPluginAndBadDevice)
+            std::cout << "ERROR: device is not supported" << std::endl;
+        if (FLAGS_m.empty())
+            std::cout << "ERROR: file with model - not set" << std::endl;
+        if (FLAGS_i.empty())
+            std::cout << "ERROR: image(s) for inference - not set" << std::endl;
+        showUsage();
+        return 2;
+    }
 
-	if ((FLAGS_t.compare("SSD") && (FLAGS_t.compare("YOLO") && (FLAGS_t.compare("YOLO-tiny")))) != 0) {
-		std::cout << "ERROR: inference type must be SSD, YOLO, or YOLO-tiny" << std::endl;
-		showUsage();
-		return 2;
-	}
 
-	//----------------------------------------------------------------------------
-	// prepare video input
-	//----------------------------------------------------------------------------
 
-	std::string input_filename = FLAGS_i;
+    //----------------------------------------------------------------------------
+    // prepare video input
+    //----------------------------------------------------------------------------
 
-	bool SINGLE_IMAGE_MODE = false;
+    std::string input_filename = FLAGS_i;
 
-	std::vector<std::string> imgExt = { ".bmp", ".jpg" };
+    bool SINGLE_IMAGE_MODE = false;
 
-	for (size_t i = 0; i < imgExt.size(); i++) {
-		if (input_filename.rfind(imgExt[i]) != std::string::npos) {
-			SINGLE_IMAGE_MODE = true;
-			break;
-		}
-	}
+    std::vector<std::string> imgExt = { ".bmp", ".jpg" };
 
-	//open video capture
-	VideoCapture cap(FLAGS_i.c_str());
-	if (!cap.isOpened())   // check if VideoCapture init successful
-	{
-		std::cout << "Could not open input file" << std::endl;
-		return 1;
-	}
+    for (size_t i = 0; i < imgExt.size(); i++) {
+        if (input_filename.rfind(imgExt[i]) != std::string::npos) {
+            SINGLE_IMAGE_MODE = true;
+            break;
+        }
+    }
 
-	// ----------------
-	// Read class names
-	// ----------------
-	std::string labels[NUMLABELS];
+    //open video capture
+    VideoCapture cap(FLAGS_i.c_str());
+    if (!cap.isOpened())   // check if VideoCapture init successful
+    {
+        std::cout << "Could not open input file" << std::endl;
+        return 1;
+    }
 
-	std::ifstream infile(FLAGS_l);
+    // ----------------
+    // Read class names
+    // ----------------
+    std::string labels[NUMLABELS];
 
-	if (!infile.is_open()) {
-		std::cout << "Could not open labels file" << std::endl;
-		return 1;
-	}
+    std::ifstream infile(FLAGS_l);
 
-	for (int i = 0; i < NUMLABELS; i++) {
-		getline(infile, labels[i]);
-	}
+    if (!infile.is_open()) {
+        std::cout << "Could not open labels file" << std::endl;
+        return 1;
+    }
 
-	infile.close();
+    for (int i = 0; i < NUMLABELS; i++) {
+        getline(infile, labels[i]);
+    }
 
-	// -----------------
-	// Load plugin
-	// -----------------
+    infile.close();
+
+    // -----------------
+    // Load plugin
+    // -----------------
 
 #ifdef WIN32
-	std::string archPath = "../../../bin" OS_LIB_FOLDER "intel64/Release/";
+    std::string archPath = "../../../bin" OS_LIB_FOLDER "intel64/Release/";
 #else
-	std::string archPath = "../../../lib/" OS_LIB_FOLDER "intel64";
+    std::string archPath = "../../../lib/" OS_LIB_FOLDER "intel64";
 #endif
 
-	InferenceEngine::InferenceEnginePluginPtr _plugin(selectPlugin(
-	{
-		FLAGS_pp,
-		archPath,
-		DEFAULT_PATH_P,
-		""
-		/* This means "search in default paths including LD_LIBRARY_PATH" */
-	},
-		FLAGS_p,
-		FLAGS_d));
-
-	const PluginVersion *pluginVersion;
-	_plugin->GetVersion((const InferenceEngine::Version*&)pluginVersion);
-	std::cout << pluginVersion << std::endl;
-
-	// ----------------
-	// Enable performance counters
-	// ----------------
-
-	if (FLAGS_pc) {
-		_plugin->SetConfig({ { PluginConfigParams::KEY_PERF_COUNT, PluginConfigParams::YES } }, nullptr);
-	}
-
-	// ----------------
-	// Read network
-	// ----------------
-	InferenceEngine::CNNNetReader network;
-
-	try {
-		network.ReadNetwork(FLAGS_m);
-	}
-	catch (InferenceEngineException ex) {
-		std::cerr << "Failed to load network: " << ex.what() << std::endl;
-		return 1;
-	}
-
-	std::cout << "Network loaded." << std::endl;
-
-	std::string binFileName = fileNameNoExt(FLAGS_m) + ".bin";
-	network.ReadWeights(binFileName.c_str());
-
-	// ---------------
-	// set the target device
-	// ---------------
-	if (!FLAGS_d.empty()) {
-		network.getNetwork().setTargetDevice(getDeviceFromStr(FLAGS_d));
-	}
-
-	// --------------------
-	// Set batch size
-	// --------------------
-
-	if (SINGLE_IMAGE_MODE) {
-		network.getNetwork().setBatchSize(1);
-	}
-	else {
-		network.getNetwork().setBatchSize(FLAGS_batch);
-	}
-
-	size_t batchSize = network.getNetwork().getBatchSize();
-
-	std::cout << "Batch size = " << batchSize << std::endl;
-
-	//----------------------------------------------------------------------------
-	//  Inference engine input setup
-	//----------------------------------------------------------------------------
-
-	std::cout << "Setting-up input, output blobs..." << std::endl;
-
-	// ---------------
-	// set input configuration
-	// ---------------
-	InputsDataMap inputs;
-
-	inputs = network.getNetwork().getInputsInfo();
-
-	if (inputs.size() != 1) {
-		std::cout << "This sample accepts networks having only one input." << std::endl;
-		return 1;
-	}
-
-	InputInfo::Ptr ii = inputs.begin()->second;
-	InferenceEngine::SizeVector inputDims = ii->getDims();
-
-	if (inputDims.size() != 4) {
-		std::cout << "Not supported input dimensions size, expected 4, got "
-			<< inputDims.size() << std::endl;
-	}
-
-	std::string imageInputName = inputs.begin()->first;
-
-	// look for the input == imageData
-	DataPtr image = inputs[imageInputName]->getInputData();
-
-	inputs[imageInputName]->setInputPrecision(FP32);
+    InferenceEngine::InferenceEnginePluginPtr _plugin(selectPlugin(
+    {
+        FLAGS_pp,
+        archPath,
+        DEFAULT_PATH_P,
+        ""
+        /* This means "search in default paths including LD_LIBRARY_PATH" */
+    },
+    FLAGS_p,
+    FLAGS_d));
+
+    const PluginVersion *pluginVersion;
+    _plugin->GetVersion((const InferenceEngine::Version*&)pluginVersion);
+    std::cout << pluginVersion << std::endl;
+
+    // ----------------
+    // Enable performance counters
+    // ----------------
+
+    if (FLAGS_pc) {
+        _plugin->SetConfig({ { PluginConfigParams::KEY_PERF_COUNT, PluginConfigParams::YES } }, nullptr);
+    }
+
+    // ----------------
+    // Read network
+    // ----------------
+    InferenceEngine::CNNNetReader network;
+
+    try {
+        network.ReadNetwork(FLAGS_m);
+    }
+    catch (InferenceEngineException ex) {
+        std::cerr << "Failed to load network: " << ex.what() << std::endl;
+        return 1;
+    }
+
+    std::cout << "Network loaded." << std::endl;
+
+    std::string binFileName = fileNameNoExt(FLAGS_m) + ".bin";
+    network.ReadWeights(binFileName.c_str());
+
+    // ---------------
+    // set the target device
+    // ---------------
+    if (!FLAGS_d.empty()) {
+        network.getNetwork().setTargetDevice(getDeviceFromStr(FLAGS_d));
+    }
+
+    // --------------------
+    // Set batch size
+    // --------------------
+
+    if (SINGLE_IMAGE_MODE) {
+        network.getNetwork().setBatchSize(1);
+    }
+    else {
+        network.getNetwork().setBatchSize(FLAGS_batch);
+    }
+
+    size_t batchSize = network.getNetwork().getBatchSize();
+
+    std::cout << "Batch size = " << batchSize << std::endl;
+
+    //----------------------------------------------------------------------------
+    //  Inference engine input setup
+    //----------------------------------------------------------------------------
+
+    std::cout << "Setting-up input, output blobs..." << std::endl;
+
+    // ---------------
+    // set input configuration
+    // ---------------
+    InputsDataMap inputs;
+
+    inputs = network.getNetwork().getInputsInfo();
+
+    if (inputs.size() != 1) {
+        std::cout << "This sample accepts networks having only one input." << std::endl;
+        return 1;
+    }
+
+    InputInfo::Ptr ii = inputs.begin()->second;
+    InferenceEngine::SizeVector inputDims = ii->getDims();
+
+    if (inputDims.size() != 4) {
+        std::cout << "Not supported input dimensions size, expected 4, got "
+                  << inputDims.size() << std::endl;
+    }
 
-	// --------------------
-	// Allocate input blobs
-	// --------------------
-	InferenceEngine::BlobMap inputBlobs;
-	InferenceEngine::TBlob<float>::Ptr input =
-		InferenceEngine::make_shared_blob < float,
-		const InferenceEngine::SizeVector >(FP32, inputDims);
-	input->allocate();
+    std::string imageInputName = inputs.begin()->first;
 
-	inputBlobs[imageInputName] = input;
+    // look for the input == imageData
+    DataPtr image = inputs[imageInputName]->getInputData();
+
+    inputs[imageInputName]->setInputPrecision(FP32);
 
-	//uncomment below for video output
-	int frame_width = inputDims[1];
-	int frame_height = inputDims[0];
+    // --------------------
+    // Allocate input blobs
+    // --------------------
+    InferenceEngine::BlobMap inputBlobs;
+    InferenceEngine::TBlob<float>::Ptr input =
+        InferenceEngine::make_shared_blob < float,
+        const InferenceEngine::SizeVector >(FP32, inputDims);
+    input->allocate();
 
-	VideoWriter video("out.avi", CV_FOURCC('M', 'J', 'P', 'G'), 10,
-		Size(frame_width, frame_height), true);
+    inputBlobs[imageInputName] = input;
 
-	// --------------------------------------------------------------------------
-	// Load model into plugin
-	// --------------------------------------------------------------------------
-	std::cout << "Loading model to plugin..." << std::endl;
+    //uncomment below for video output
+    int frame_width = inputDims[1];
+    int frame_height = inputDims[0];
 
-	InferenceEngine::ResponseDesc dsc;
+    VideoWriter video("out.avi", CV_FOURCC('M', 'J', 'P', 'G'), 10,
+                      Size(frame_width, frame_height), true);
 
-	InferenceEngine::StatusCode sts = _plugin->LoadNetwork(network.getNetwork(), &dsc);
-	if (sts != 0) {
-		std::cout << "Error loading model into plugin: " << dsc.msg << std::endl;
-		return 1;
-	}
+    // --------------------------------------------------------------------------
+    // Load model into plugin
+    // --------------------------------------------------------------------------
+    std::cout << "Loading model to plugin..." << std::endl;
 
-	//----------------------------------------------------------------------------
-	//  Inference engine output setup
-	//----------------------------------------------------------------------------
-
-	// --------------------
-	// get output dimensions
-	// --------------------
-	InferenceEngine::OutputsDataMap out;
-	out = network.getNetwork().getOutputsInfo();
-	InferenceEngine::BlobMap outputBlobs;
-
-	std::string outputName = out.begin()->first;
-
-	int maxProposalCount = -1;
-
-	for (auto && item : out) {
-		InferenceEngine::SizeVector outputDims = item.second->dims;
-
-		InferenceEngine::TBlob < float >::Ptr output;
-		output =
-			InferenceEngine::make_shared_blob < float,
-			const InferenceEngine::SizeVector >(InferenceEngine::FP32,
-				outputDims);
-		output->allocate();
-
-		outputBlobs[item.first] = output;
-		maxProposalCount = outputDims[1];
-
-		std::cout << "maxProposalCount = " << maxProposalCount << std::endl;
-	}
-
-	InferenceEngine::SizeVector outputDims = outputBlobs.cbegin()->second->dims();
-	size_t outputSize = outputBlobs.cbegin()->second->size() / batchSize;
-
-	std::cout << "Output size = " << outputSize << std::endl;
-	//----------------------------------------------------------------------------
-	//---------------------------
-	// main loop starts here
-	//---------------------------
-	//----------------------------------------------------------------------------
-
-	Mat frame;
-	Mat* resized = new Mat[batchSize];
-
-	float normalize_factor = 1.0;
-
-	if (FLAGS_t.compare("SSD") != 0) {
-		normalize_factor = 256;
-	}
-
-	auto input_channels = inputDims[2];  // channels for color format.  RGB=4
-	size_t input_width = inputDims[1];
-	size_t input_height = inputDims[0];
-	auto channel_size = input_width * input_height;
-	auto input_size = channel_size * input_channels;
-
-	std::cout << "Input size = " << input_size << std::endl;
-
-	bool no_more_data = false;
-
-	int totalFrames = 0;
-
-	std::cout << "Running inference..." << std::endl;
-
-	for (;;) {
-		for (size_t mb = 0; mb < batchSize; mb++) {
-			float* inputPtr = input.get()->data() + input_size * mb;
-
-			//---------------------------
-			// get a new frame
-			//---------------------------
-			cap >> frame;
-
-			totalFrames++;
-
-			if (!frame.data) {
-				no_more_data = true;
-				break;  //frame input ended
-			}
-
-			//---------------------------
-			// resize to expected size (in model .xml file)
-			//---------------------------
-			resize(frame, resized[mb], Size(frame_width, frame_height));
-
-			//---------------------------
-			// PREPROCESS STAGE:
-			// convert image to format expected by inference engine
-			// IE expects planar, convert from packed
-			//---------------------------
-			long unsigned int framesize = resized[mb].rows * resized[mb].step1();
-
-			if (framesize != input_size) {
-				std::cout << "input pixels mismatch, expecting " << input_size
-					<< " bytes, got: " << framesize;
-				return 1;
-			}
-
-			// imgIdx � image pixel counter
-			// channel_size � size of a channel, computed as image size in bytes divided by number of channels, or image width * image height
-			// inputPtr � a pointer to pre-allocated inout buffer
-			for (size_t i = 0, imgIdx = 0, idx = 0; i < channel_size; i++, idx++) {
-				for (size_t ch = 0; ch < input_channels; ch++, imgIdx++) {
-					inputPtr[idx + ch * channel_size] = resized[mb].data[imgIdx] / normalize_factor;
-				}
-			}
-		}
-
-		if (no_more_data) {
-			break;
-		}
-
-		if (FLAGS_fr > 0 && totalFrames > FLAGS_fr) {
-			break;
-		}
-
-		//---------------------------
-		// INFER STAGE
-		//---------------------------
-		sts = _plugin->Infer(inputBlobs, outputBlobs, &dsc);
-		if (sts != 0) {
-			std::cout << "An infer error occurred: " << dsc.msg << std::endl;
-			return 1;
-		}
-
-		//---------------------------
-		// Read perfomance counters
-		//---------------------------
-
-		if (FLAGS_pc) {
-			std::map<std::string, InferenceEngine::InferenceEngineProfileInfo> perfomanceMap;
-			_plugin->GetPerformanceCounts(perfomanceMap, nullptr);
-
-			printPerformanceCounters(perfomanceMap);
-		}
-
-		//---------------------------
-		// POSTPROCESS STAGE:
-		// parse output
-		// Output layout depends on network topology
-		// so there are different paths for YOLO and SSD
-		//---------------------------
-		InferenceEngine::Blob::Ptr detectionOutBlob = outputBlobs[outputName];
-		const InferenceEngine::TBlob < float >::Ptr detectionOutArray =
-			std::dynamic_pointer_cast <InferenceEngine::TBlob <
-			float >>(detectionOutBlob);
-
-		for (size_t mb = 0; mb < batchSize; mb++) {
-			float *box = detectionOutArray->data() + outputSize * mb;
-
-			std::vector < DetectedObject > detectedObjects;
-
-			if (FLAGS_t.compare("SSD") == 0) {
-				//---------------------------
-				// parse SSD output
-				//---------------------------
-
-				for (int c = 0; c < maxProposalCount; c++) {
-					float image_id = box[c * 7 + 0];
-					float label = box[c * 7 + 1];
-					float confidence = box[c * 7 + 2];
-					float xmin = box[c * 7 + 3] * inputDims[0];
-					float ymin = box[c * 7 + 4] * inputDims[1];
-					float xmax = box[c * 7 + 5] * inputDims[0];
-					float ymax = box[c * 7 + 6] * inputDims[1];
-
-					if (confidence > FLAGS_thresh) {
-						printf("%d label=%f confidence %f (%f,%f)-(%f,%f)\n", c, label, confidence, xmin, ymin, xmax, ymax);
-
-						rectangle(resized[mb],
-							Point((int)xmin, (int)ymin),
-							Point((int)xmax, (int)ymax), Scalar(0, 55, 255),
-							+1, 4);
-					}
-				}
-			}
-			else {
-				//---------------------------
-				// parse yolo output
-				//---------------------------
-
-				for (int c = 0; c < NUMLABELS; c++) {
-					std::vector < DetectedObject > result = yoloNetParseOutput(box, c, frame_width, frame_height, FLAGS_thresh);
-
-					if (result.size() > 0) {
-						std::cout << "class: " << c << "(" << labels[c].c_str() << ")"
-							<< "boxes: " << result.size() << std::endl;
-
-                        doNMS(result, .45);
-					}
-
-					for (int i = 0; i < result.size(); i++) {
-                        if (result[i].prob <= 0) {
-                            continue;
-                        }
-
-						rectangle(resized[mb],
-							Point(result[i].xmin,
-								result[i].ymin),
-							Point(result[i].xmax,
-								result[i].ymax), Scalar(0, 55, 255),
-							+1, 4);
-					}
-				}
-			}
-
-			
-		}
-
-		//---------------------------
-		// output/render
-		//---------------------------
-
-		for (int mb = 0; mb < batchSize; mb++) {
-			if (SINGLE_IMAGE_MODE) {
-				imwrite("out.jpg", resized[mb]);
-			}
-			else {
-				video.write(resized[mb]);
-			}
-
-			//uncomment to render results
-			cv::imshow("frame", resized[mb]);
-			if (waitKey(30) >= 0)
-				break;
-		}
-	}
-
-	delete [] resized;
-
-	std::cout << "Done!" << std::endl;
-
-	return 0;
+    InferenceEngine::ResponseDesc dsc;
+
+    InferenceEngine::StatusCode sts = _plugin->LoadNetwork(network.getNetwork(), &dsc);
+    if (sts != 0) {
+        std::cout << "Error loading model into plugin: " << dsc.msg << std::endl;
+        return 1;
+    }
+
+    //----------------------------------------------------------------------------
+    //  Inference engine output setup
+    //----------------------------------------------------------------------------
+
+    // --------------------
+    // get output dimensions
+    // --------------------
+    InferenceEngine::OutputsDataMap out;
+    out = network.getNetwork().getOutputsInfo();
+    InferenceEngine::BlobMap outputBlobs;
+
+    std::string outputName = out.begin()->first;
+
+    int maxProposalCount = -1;
+
+    for (auto && item : out) {
+        InferenceEngine::SizeVector outputDims = item.second->dims;
+
+        InferenceEngine::TBlob < float >::Ptr output;
+        output =
+            InferenceEngine::make_shared_blob < float,
+            const InferenceEngine::SizeVector >(InferenceEngine::FP32,
+                                                outputDims);
+        output->allocate();
+
+        outputBlobs[item.first] = output;
+        maxProposalCount = outputDims[1];
+
+        std::cout << "maxProposalCount = " << maxProposalCount << std::endl;
+    }
+
+    InferenceEngine::SizeVector outputDims = outputBlobs.cbegin()->second->dims();
+    size_t outputSize = outputBlobs.cbegin()->second->size() / batchSize;
+
+    std::cout << "Output size = " << outputSize << std::endl;
+    //----------------------------------------------------------------------------
+    //---------------------------
+    // main loop starts here
+    //---------------------------
+    //----------------------------------------------------------------------------
+
+    Mat frame;
+    Mat* resized = new Mat[batchSize];
+
+
+    auto input_channels = inputDims[2];  // channels for color format.  RGB=4
+    size_t input_width = inputDims[1];
+    size_t input_height = inputDims[0];
+    auto channel_size = input_width * input_height;
+    auto input_size = channel_size * input_channels;
+
+    std::cout << "Input size = " << input_size << std::endl;
+
+    bool no_more_data = false;
+
+    int totalFrames = 0;
+
+    std::cout << "Running inference..." << std::endl;
+
+    for (;;) {
+        for (size_t mb = 0; mb < batchSize; mb++) {
+            float* inputPtr = input.get()->data() + input_size * mb;
+
+            //---------------------------
+            // get a new frame
+            //---------------------------
+            cap >> frame;
+
+            totalFrames++;
+
+            if (!frame.data) {
+                no_more_data = true;
+                break;  //frame input ended
+            }
+
+            //---------------------------
+            // resize to expected size (in model .xml file)
+            //---------------------------
+            resize(frame, resized[mb], Size(frame_width, frame_height));
+
+            //---------------------------
+            // PREPROCESS STAGE:
+            // convert image to format expected by inference engine
+            // IE expects planar, convert from packed
+            //---------------------------
+            long unsigned int framesize = resized[mb].rows * resized[mb].step1();
+
+            if (framesize != input_size) {
+                std::cout << "input pixels mismatch, expecting " << input_size
+                          << " bytes, got: " << framesize;
+                return 1;
+            }
+
+            // imgIdx = image pixel counter
+            // channel_size = size of a channel, computed as image size in bytes divided by number of channels, or image width * image height
+            // inputPtr = a pointer to pre-allocated inout buffer
+            for (size_t i = 0, imgIdx = 0, idx = 0; i < channel_size; i++, idx++) {
+                for (size_t ch = 0; ch < input_channels; ch++, imgIdx++) {
+                    inputPtr[idx + ch * channel_size] = resized[mb].data[imgIdx];
+                }
+            }
+        }
+
+        if (no_more_data) {
+            break;
+        }
+
+        if (FLAGS_fr > 0 && totalFrames > FLAGS_fr) {
+            break;
+        }
+
+        //---------------------------
+        // INFER STAGE
+        //---------------------------
+        sts = _plugin->Infer(inputBlobs, outputBlobs, &dsc);
+        if (sts != 0) {
+            std::cout << "An infer error occurred: " << dsc.msg << std::endl;
+            return 1;
+        }
+
+        //---------------------------
+        // Read perfomance counters
+        //---------------------------
+
+        if (FLAGS_pc) {
+            std::map<std::string, InferenceEngine::InferenceEngineProfileInfo> perfomanceMap;
+            _plugin->GetPerformanceCounts(perfomanceMap, nullptr);
+
+            printPerformanceCounters(perfomanceMap);
+        }
+
+        //---------------------------
+        // POSTPROCESS STAGE:
+        // parse output
+        // Output layout depends on network topology
+        // so there are different paths for YOLO and SSD
+        //---------------------------
+        InferenceEngine::Blob::Ptr detectionOutBlob = outputBlobs[outputName];
+        const InferenceEngine::TBlob < float >::Ptr detectionOutArray =
+            std::dynamic_pointer_cast <InferenceEngine::TBlob <
+            float >>(detectionOutBlob);
+
+        for (size_t mb = 0; mb < batchSize; mb++) {
+            float *box = detectionOutArray->data() + outputSize * mb;
+
+            std::vector < DetectedObject > detectedObjects;
+
+            //---------------------------
+            // parse SSD output
+            //---------------------------
+            for (int c = 0; c < maxProposalCount; c++) {
+                float image_id = box[c * 7 + 0];
+                float label = box[c * 7 + 1] - 1;
+                float confidence = box[c * 7 + 2];
+                float xmin = box[c * 7 + 3] * inputDims[0];
+                float ymin = box[c * 7 + 4] * inputDims[1];
+                float xmax = box[c * 7 + 5] * inputDims[0];
+                float ymax = box[c * 7 + 6] * inputDims[1];
+
+                if (confidence > FLAGS_thresh) {
+                    int labelnum=(int)label;
+		    labelnum=(labelnum<0)?0:(labelnum>NUMLABELS)?NUMLABELS:labelnum;
+                    printf("%d label=%s confidence %f (%f,%f)-(%f,%f)\n", c, labels[labelnum].c_str(), confidence, xmin, ymin, xmax, ymax);
+
+                    rectangle(resized[mb],
+                              Point((int)xmin, (int)ymin),
+                              Point((int)xmax, (int)ymax), Scalar(0, 55, 255),
+                              +1, 4);
+                }
+            }
+        }
+
+        //---------------------------
+        // output/render
+        //---------------------------
+
+        for (int mb = 0; mb < batchSize; mb++) {
+            if (SINGLE_IMAGE_MODE) {
+                imwrite("out.jpg", resized[mb]);
+            }
+            else {
+                video.write(resized[mb]);
+            }
+
+            //uncomment to render results
+            //  cv::imshow("frame", resized[mb]);
+            //  if (waitKey(30) >= 0)
+            //      break;
+        }
+    }
+
+    delete [] resized;
+
+    std::cout << "Done!" << std::endl;
+
+    return 0;
 }

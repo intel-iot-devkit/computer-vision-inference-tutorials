@@ -18,10 +18,64 @@ The Inference Engine requires that the model be converted to IR (Intermediate Re
 ## Setup
 If you have not already, install the Intel® Computer Vision SDK, see [Setup insructions for how to install](../0-setup/).
 
-You need to install libgflags-dev for this code to compile:  
-```sudo apt-get install libgflags-dev```
+## Get the code
+### Clone this repository
+```
+git clone https://github.com/intel-iot-devkit/computer-vision-inference-tutorials.git
+```
+This will take a few minutes.
 
-## Run the Inference Engine using the IR files in a C++ application
+## Install Caffe
+Caffe is required to convert a Caffe model using the Model Optimizer. This script is installing a version of Caffe that is compatible with the Model Optimizer.
+
+From the `computer-vision-inference-tutorials/2-run-model-optimizer` directory 
+```
+cd 2-run-model-optimizer
+````
+Enter in a terminal:
+```
+sudo su
+
+source /opt/intel/computer_vision_sdk_2017.1.163/bin/setupvars.sh
+
+python installSSDCaffe.py
+
+```
+This should take somewhere between **10 and 20 minutes** depending on your system.
+
+## Generate the .bin and .xml (IR files) for the Inference Engine
+The Caffe model files (```SSD_GoogleNetV2_Deploy.prototxt``` and ```SSD_GoogleNetV2_Deploy.caffemodel```) have already been provided for you in this folder.  You will convert them to IR files by running the Model Optimizer using the runMO.py script.
+
+While still in super user mode run:
+```
+python runMO.py -w SSD_GoogleNetV2.caffemodel -d SSD_GoogleNetV2_Deploy.prototxt
+
+```
+### Verify the creation of the IR files 
+
+Look in the ```/artifacts/VGG_VOC0712_SSD_300x300_deploy``` folder.
+```
+cd artifacts/VGG_VOC0712_SSD_300x300_deploy
+ls
+```
+Check that
+```VGG_VOC0712_SSD_300x300_deploy.xml```
+and
+```VGG_VOC0712_SSD_300x300_deploy.bin```
+were created in that directory
+
+![](images/mo-output.jpg)
+
+Make sure to exit super user mode before continuing
+```exit```
+
+### Remove libgflags-dev
+The installation of Caffe causes a conflict with gflags, so remove the package you installed earlier by:
+```sudo apt-get remove libgflags-dev```
+
+### Run the Inference Engine using the IR files in a C++ application
+**Make sure to exit super user mode before building the application**
+```exit```
 
 First get into the ```1-object-detection-ssd``` directory
 ```
@@ -33,19 +87,21 @@ First set the paths:
 source /opt/intel/computer_vision_sdk_2017.1.163/bin/setupvars.sh
 ```
 
-You'll need to install
-
 Then build:
 ```
 make
 ```
 
-**Note:** If you get an error, make sure to install libgflags-dev:
-```sudo apt-get install libgflags-dev```
+**Note:** If you get an error related to "undefined reference to 'google::FlagRegisterer...", try uninstalling libgflags-dev:
+```sudo apt-get remove libgflags-dev```
 
-Then run:
+Before running, download the test video file to a new ```videos``` directory:
 ```
-./IEobjectdetection -i videos/vtest.avi -fr 200 -m SSD_GoogleNet_v2_fp32.xml -d CPU -t SSD -l pascal_voc_classes.txt
+wget https://github.com/opencv/opencv/raw/master/samples/data/vtest.avi -P videos/
+```
+To run:
+```
+./IEobjectdetection -i videos/vtest.avi -fr 200 -m artifacts/VGG_VOC0712_SSD_300x300_deploy/VGG_VOC0712_SSD_300x300_deploy.xml -d CPU -t SSD -l pascal_voc_classes.txt
 ```
 
 You should see a video play with people walking across and red bouding boxes around them:
@@ -123,7 +179,6 @@ You can enable the output of performance data to the console by using the `-pc` 
 ./IEobjectdetection -i videos/vtest.avi -fr 200 -m SSD_GoogleNet_v2_fp32.xml -d CPU -t SSD -l pascal_voc_classes.txt -pc
 ```
 You'll see the **Total time** it took to run.
-![](images/cpu-pc-results.jpg)
 
 ### GPU
 Since you installed the OpenCL\* drivers to use the GPU, you can try running inference on the GPU and compare the difference.
@@ -142,8 +197,7 @@ Using the GPU is set by this flag
 ./IEobjectdetection -i videos/vtest.avi -fr 200 -m SSD_GoogleNet_v2_fp32.xml -d GPU -t SSD -l pascal_voc_classes.txt -pc
 ```
 
-You'll see the **Total time** is significantly lower when using the GPU.
-![](images/gpu-pc-results.jpg)
+The **Total time** between CPU and GPU will vary on your system.
 
 ## How it works
 
