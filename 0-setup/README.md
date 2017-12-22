@@ -12,9 +12,8 @@
   * Ubuntu\* 16.04.3 LTS
   * In order to run inference on the integrated GPU:  
 	* A processor with Intel® Iris® Pro graphics or HD Graphics 
-	* No discrete graphics card installed (required by OpenCL™)
+	* No discrete graphics card installed (required by OpenCL™).  If you have one, make sure to disable it in BIOS before going through this installation process.
 	* No drivers for other GPUs installed, or libraries built with support for other GPUs   
-		**Note:** If you're not sure that you meet all these requirements for the GPU, that's ok, we provide a script for you to check compatibility.
 	
 ## Install OpenCL Runtime Package
 In order to run inference on the GPU, you need to first install the OpenCL runtime package. These commands install the OpenCL runtime package, as well as some package dependencies required by the CV SDK. 
