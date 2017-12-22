@@ -48,9 +48,11 @@ sudo ldconfig
 
 If you've already registered for the CV SDK before, you should get access to download almost immediately.
 
-![](images/email-confirmation.jpg)
+![](images/email-confirmation.jpg)  
+
 3. From the link in the email, download the __Ubuntu* package__
 ![](images/download-page-1.jpg)
+
 4. Unzip the contents (to a folder in your directory of choice)
 ```
 tar zxvf intel_cv_sdk_ubuntu_r3_2017.1.163.tgz
