@@ -1,11 +1,11 @@
 # Object Recognition using Inference and Single Shot MultiBox Detector (SSD)\*
 
-This tutorial will walk you through the basics of using the Deep Learning Deployment Toolkit's Inference Engine (included in the Intel® Computer Vision SDK). Here, inference is the process of using a trained neural network to infer meaning from data (e.g., images). In the code sample that follows, a video (frame by frame) is fed to the Inference Engine (our trained neural network) which then outputs a result (classification of an image). Inference can be done using various neural network architectures (AlexNet\*, GoogleNet\*, etc.). This example uses a Single Shot MultiBox Detector (SSD) on GoogleNet model.  For an example of how SSD is used see [this article](https://software.intel.com/en-us/articles/unattended-baggage-detection-using-deep-neural-networks-in-intel-architecture) on the Intel Developer Zone.
+This tutorial will walk you through the basics of using the Deep Learning Deployment Toolkit's Inference Engine (included in the Intel® Computer Vision SDK). Here, inference is the process of using a trained neural network to infer meaning from data (e.g., images). In the code sample that follows, a video (frame by frame) is fed to the Inference Engine (our trained neural network) which then outputs a result (classification of an image). Inference can be done using various neural network architectures (AlexNet\*, GoogleNet\*, etc.). This example uses a Single Shot MultiBox Detector (SSD) on GoogleNet model.  For an example of how SSD is used see [this article](https://software.intel.com/en-us/articles/unattended-baggage-detection-using-deep-neural-networks-in-intel-architecture) on the Intel® Developer Zone.
 
 The Inference Engine requires that the model be converted to IR (Intermediate Representation) files.  This tutorial will walk you through the basics taking an existing model (GoogleNet) and converting it to IR (Intermediate Representation) files using the Model Optimizer.
 
 ### So what's different about running a neural network on the Inference Engine versus an out of the box framework?  
-* The Inference Engine optimizes inference allowing a user to run deep learning deployments *__significantly faster__* on Intel® architecture.  For more information on the performance on Intel Processor Graphics see [this article](https://software.intel.com/en-us/articles/accelerating-deep-learning-inference-with-intel-processor-graphics)
+* The Inference Engine optimizes inference allowing a user to run deep learning deployments *__significantly faster__* on Intel® architecture.  For more information on the performance on Intel® Processor Graphics see [this article](https://software.intel.com/en-us/articles/accelerating-deep-learning-inference-with-intel-processor-graphics)
 * Inference can run on hardware other than the CPU such as the built-in Intel® GPU or Intel® FPGA accelerator card.
 
 ## What you’ll Learn
@@ -177,7 +177,7 @@ You can enable the output of performance data to the console by using the `-pc` 
 You'll see the **Total time** it took to run.
 
 ### GPU
-Since you installed the OpenCL\* drivers to use the GPU, you can try running inference on the GPU and compare the difference.
+Since you installed the OpenCL™ drivers to use the GPU, you can try running inference on the GPU and compare the difference.
 
 **IT'S BEST TO OPEN A NEW TERMINAL WINDOW SO YOU CAN COMPARE THE RESULTS**
 
@@ -198,7 +198,7 @@ The **Total time** between CPU and GPU will vary on your system.
 ## How it works
 
 ### How does the Inference Engine work?
-The Inference Engine takes a representation of a neural network model and optimizes it to take advantage of advanced Intel instruction sets in the CPU, and also makes it compatible with the other hardware accelerators (GPU and FPGA). To do this, the model files (e.g., .caffemodel, .prototxt) are given to the Model Optimizer which then processes the files and outputs two new files: a .bin and .xml.  These two files are used instead of the original model files when you run your application. In this example, the .bin and .xml files are provided.
+The Inference Engine takes a representation of a neural network model and optimizes it to take advantage of advanced Intel® instruction sets in the CPU, and also makes it compatible with the other hardware accelerators (GPU and FPGA). To do this, the model files (e.g., .caffemodel, .prototxt) are given to the Model Optimizer which then processes the files and outputs two new files: a .bin and .xml.  These two files are used instead of the original model files when you run your application. In this example, the .bin and .xml files are provided.
 
 ![](images/inference_engine.jpg)
 
