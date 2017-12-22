@@ -18,7 +18,7 @@
 ## Install OpenCL Runtime Package
 In order to run inference on the GPU, you need to first install the OpenCL runtime package. These commands install the OpenCL runtime package, as well as some package dependencies required by the CV SDK. 
 
-**Note:** These steps are for Ubuntu 16.04.3 or later.  If you have a version older than 16.04.3, then you need to still install the Package dependencies, but skip down to the Install CV SDK section for instructions on how to install the driver.
+**Note:** These steps are for Ubuntu 16.04.3 or later.  If you have a version older than 16.04.3, then you need to still install the Package dependencies below, then skip down to the Install Intel CV SDK section for instructions on installing the OpenCL driver.
 
 Package dependencies:
 ```
