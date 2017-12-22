@@ -14,10 +14,10 @@ The Inference Engine requires that the model be converted to IR (Intermediate Re
   * Compare the performance of CPU vs GPU
 
 ## Gather your materials
-* Intel® Computer Vision SDK Beta r3 installed.  See [Setup insructions for how to install](../0-setup/) 
+* Intel® Computer Vision SDK Beta r3 installed.  See [Setup instructions for how to install](../0-setup/) 
 	
 ## Setup
-If you have not already, install the Intel® Computer Vision SDK, see [Setup insructions for how to install](../0-setup/).
+If you have not already, install the Intel® Computer Vision SDK, see [Setup instructions for how to install](../0-setup/).
 
 ## Get the code
 ### Clone this repository
