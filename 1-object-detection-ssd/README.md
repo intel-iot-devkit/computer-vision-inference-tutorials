@@ -93,7 +93,7 @@ and follow the instructions.
 git clone https://github.com/intel-iot-devkit/computer-vision-inference-tutorials.git
 ```
 
-## Install Caffe
+### Install Caffe
 Caffe is required to convert a Caffe model using the Model Optimizer. This script will install a version of Caffe to the ```opt/intel/ssdcaffe``` folder that is compatible with the Model Optimizer.
 
 From the `computer-vision-inference-tutorials/1-run-model-optimizer` directory 
@@ -111,7 +111,7 @@ exit
 ```
 This should take somewhere between **10 and 20 minutes** depending on your system.
 
-## Generate the .bin and .xml (IR files) for the Inference Engine
+### Generate the .bin and .xml (IR files) for the Inference Engine
 The Caffe model consists of two files: ```SSD_GoogleNetV2_Deploy.prototxt``` and ```SSD_GoogleNetV2_Deploy.caffemodel```. You will convert them to IR files by running the Model Optimizer using the runMO.py script.
 
 First download the files:
@@ -228,9 +228,9 @@ If you change the threshold of the confidence level to 0.1, you'll see a lot mor
 ./IEobjectdetection -i videos/vtest.avi -fr 200 -m SSD_GoogleNet_v2_fp32.xml -d CPU -t SSD -l pascal_voc_classes.txt -thresh 0.1
 ```
 
-## Compare the performance of CPU vs GPU
+### Compare the performance of CPU vs GPU
 
-### CPU
+#### CPU
 You can enable the output of performance data to the console by using the `-pc` flag.
 ```
 -pc
@@ -240,7 +240,7 @@ You can enable the output of performance data to the console by using the `-pc` 
 ```
 You'll see the **Total time** it took to run.
 
-### GPU
+#### GPU
 Since you installed the OpenCL™ drivers to use the GPU, you can try running inference on the GPU and compare the difference.
 
 **IT'S BEST TO OPEN A NEW TERMINAL WINDOW SO YOU CAN COMPARE THE RESULTS**
