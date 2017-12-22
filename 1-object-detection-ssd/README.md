@@ -5,7 +5,7 @@ This tutorial will walk you through the basics of using the Deep Learning Deploy
 The Inference Engine requires that the model be converted to IR (Intermediate Representation) files.  This tutorial will walk you through the basics taking an existing model (GoogleNet) and converting it to IR (Intermediate Representation) files using the Model Optimizer.
 
 ### So what's different about running a neural network on the Inference Engine versus an out of the box framework?  
-* The Inference Engine optimizes inference allowing a user to run deep learning deployments *__significantly faster__* on Intel® architecture.  For more information on the performance on Intel Processor Graphics see ![this article](https://software.intel.com/en-us/articles/accelerating-deep-learning-inference-with-intel-processor-graphics)
+* The Inference Engine optimizes inference allowing a user to run deep learning deployments *__significantly faster__* on Intel® architecture.  For more information on the performance on Intel Processor Graphics see [this article](https://software.intel.com/en-us/articles/accelerating-deep-learning-inference-with-intel-processor-graphics)
 * Inference can run on hardware other than the CPU such as the built-in Intel® GPU or Intel® FPGA accelerator card.
 
 ## What you’ll Learn
