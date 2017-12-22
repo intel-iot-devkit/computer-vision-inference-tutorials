@@ -5,7 +5,7 @@ This tutorial will walk you through the basics of using the Deep Learning Deploy
 The Inference Engine requires that the model be converted to IR (Intermediate Representation) files.  This tutorial will walk you through the basics taking an existing model (GoogleNet) and converting it to IR (Intermediate Representation) files using the Model Optimizer.
 
 ### So what's different about running a neural network on the Inference Engine versus an out of the box framework?  
-* The Inference Engine optimizes inference allowing a user to run deep learning deployments *__significantly faster__* on Intel® architecture.  For more information on the performanc on Intel Processor Graphics see ![this article](https://software.intel.com/en-us/articles/accelerating-deep-learning-inference-with-intel-processor-graphics)
+* The Inference Engine optimizes inference allowing a user to run deep learning deployments *__significantly faster__* on Intel® architecture.  For more information on the performance on Intel Processor Graphics see ![this article](https://software.intel.com/en-us/articles/accelerating-deep-learning-inference-with-intel-processor-graphics)
 * Inference can run on hardware other than the CPU such as the built-in Intel® GPU or Intel® FPGA accelerator card.
 
 ## What you’ll Learn
@@ -254,10 +254,19 @@ The weights are then added to the network
 
 3. Load the model into the plugin
 
+Refer to the code for how to setup the input and blobs. 
+
+### Run inference
+Inference is ran using
+```
+_plugin->Infer(inputBlobs, outputBlobs, &dsc)
+```
+**Note:** The image size is resized based on the expected size in the model .xml file for every fram before inference is ran.
+
 ## Next Steps
 For more information on how to generate IR files from Caffe and TensorFlow models see:
 
 https://software.intel.com/en-us/inference-trained-models-with-intel-dl-deployment-toolkit-beta-2017r3
 
-If you run into issues, don't hesitate to ask on our forum:
-https://software.intel.com/en-us/forums/computer-vision
+If you run into issues, don't hesitate to ask on our [forum](https://software.intel.com/en-us/forums/computer-vision):
+
