@@ -174,31 +174,6 @@ You should also see the output in the console showing the objects found and the 
 
 ![](images/expected_results_2.jpg)
 
-Here is the mapping for the labels of the classification in the console:
-
-1 - plane  
-2 - bicycle  
-3 - bird  
-4 - board  
-5 - bottle  
-6 - bus  
-7 - car  
-8 - cat  
-9 - chair  
-10 - cow  
-11 - table  
-12 - dog  
-13 - horse  
-14 - motorcycle  
-15 - person  
-16 - plant  
-17 - sheep  
-18 - sofa  
-19 - train  
-20 - monitor  
-
-They can be found in ```pascal_voc_classes.txt``` in this folder.
-
 Here is what the flags mean for running the application.  This can also be found by running:
 ```
 ./IEobjectdetection -help
