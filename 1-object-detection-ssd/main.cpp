@@ -687,9 +687,9 @@ int main(int argc, char *argv[]) {
             }
 
             //uncomment to render results
-            //  cv::imshow("frame", resized[mb]);
-            //  if (waitKey(30) >= 0)
-            //      break;
+            cv::imshow("frame", resized[mb]);
+            if (waitKey(30) >= 0)
+                break;
         }
     }
 

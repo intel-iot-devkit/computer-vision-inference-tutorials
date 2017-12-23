@@ -165,7 +165,7 @@ wget https://github.com/opencv/opencv/raw/master/samples/data/vtest.avi -P video
 ```
 To run:
 ```
-./IEobjectdetection -i videos/vtest.avi -fr 200 -m artifacts/VGG_VOC0712_SSD_300x300_deploy/VGG_VOC0712_SSD_300x300_deploy.xml -d CPU -t SSD -l pascal_voc_classes.txt
+./IEobjectdetection -i videos/vtest.avi -fr 200 -m artifacts/VGG_VOC0712_SSD_300x300_deploy/VGG_VOC0712_SSD_300x300_deploy.xml -d CPU -l pascal_voc_classes.txt
 ```
 
 You should see a video play with people walking across and red bouding boxes around them.
@@ -225,7 +225,7 @@ If you change the threshold of the confidence level to 0.1, you'll see a lot mor
 -thresh 0.1
 ```
 ```
-./IEobjectdetection -i videos/vtest.avi -fr 200 -m SSD_GoogleNet_v2_fp32.xml -d CPU -t SSD -l pascal_voc_classes.txt -thresh 0.1
+./IEobjectdetection -i videos/vtest.avi -fr 200 -m SSD_GoogleNet_v2_fp32.xml -d CPU -l pascal_voc_classes.txt -thresh 0.1
 ```
 
 ### Compare the performance of CPU vs GPU
@@ -236,7 +236,7 @@ You can enable the output of performance data to the console by using the `-pc` 
 -pc
 ```
 ```
-./IEobjectdetection -i videos/vtest.avi -fr 200 -m SSD_GoogleNet_v2_fp32.xml -d CPU -t SSD -l pascal_voc_classes.txt -pc
+./IEobjectdetection -i videos/vtest.avi -fr 200 -m SSD_GoogleNet_v2_fp32.xml -d CPU -l pascal_voc_classes.txt -pc
 ```
 You'll see the **Total time** it took to run.
 
@@ -254,7 +254,7 @@ Using the GPU is set by this flag
 -d GPU
 ```
 ```
-./IEobjectdetection -i videos/vtest.avi -fr 200 -m SSD_GoogleNet_v2_fp32.xml -d GPU -t SSD -l pascal_voc_classes.txt -pc
+./IEobjectdetection -i videos/vtest.avi -fr 200 -m SSD_GoogleNet_v2_fp32.xml -d GPU -l pascal_voc_classes.txt -pc
 ```
 
 The **Total time** between CPU and GPU will vary on your system.
