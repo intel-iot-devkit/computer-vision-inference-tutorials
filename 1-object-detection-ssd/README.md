@@ -172,7 +172,7 @@ You should see a video play with people walking across and red bouding boxes aro
 
 You should also see the output in the console showing the objects found and the confidence level.
 
-![](images/expected_results_3.jpg)
+![](images/expected_results_1.jpg)
 
 Here is what the flags mean for running the application.  This can also be found by running:
 ```
