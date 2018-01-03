@@ -122,130 +122,6 @@ static void showUsage()
     std::cout << "    -b <val>     " << batch_message << std::endl;
 }
 
-float overlap(float x1, float w1, float x2, float w2)
-{
-    float l1 = x1 - w1 / 2;
-    float l2 = x2 - w2 / 2;
-    float left = l1 > l2 ? l1 : l2;
-    float r1 = x1 + w1 / 2;
-    float r2 = x2 + w2 / 2;
-    float right = r1 < r2 ? r1 : r2;
-    return right - left;
-}
-
-float boxIntersection(DetectedObject a, DetectedObject b)
-{
-    float w = overlap(a.xmin, (a.xmax - a.xmin), b.xmin, (b.xmax - b.xmin));
-    float h = overlap(a.ymin, (a.ymax - a.ymin), b.ymin, (b.ymax - b.ymin));
-
-    if (w < 0 || h < 0) {
-        return 0;
-    }
-
-    float area = w * h;
-
-    return area;
-}
-
-float boxUnion(DetectedObject a, DetectedObject b)
-{
-    float i = boxIntersection(a, b);
-    float u = (a.xmax - a.xmin) * (a.ymax - a.ymin) + (b.xmax - b.xmin) * (b.ymax - b.ymin) - i;
-
-    return u;
-}
-
-float boxIoU(DetectedObject a, DetectedObject b)
-{
-    return boxIntersection(a, b) / boxUnion(a, b);
-}
-
-void doNMS(std::vector<DetectedObject>& objects, float thresh)
-{
-    int i, j;
-    for(i = 0; i < objects.size(); ++i) {
-        int any = 0;
-
-        any = any || (objects[i].objectType > 0);
-
-        if(!any) {
-            continue;
-        }
-
-        for(j = i + 1; j < objects.size(); ++j) {
-            if (boxIoU(objects[i], objects[j]) > thresh) {
-                if (objects[i].prob < objects[j].prob) {
-                    objects[i].prob = 0;
-                }
-                else {
-                    objects[j].prob = 0;
-                }
-            }
-        }
-    }
-}
-
-/**
- * \brief This function analyses the YOLO net output for a single class
- * @param net_out - The output data
- * @param class_num - The class number
- * @return a list of found boxes
- */
-std::vector < DetectedObject > yoloNetParseOutput(float *net_out,
-        int class_num,
-        int modelWidth,
-        int modelHeight,
-        float threshold
-                                                 )
-{
-    int C = 20;         // classes
-    int B = 2;          // bounding boxes
-    int S = 7;          // cell size
-
-    std::vector < DetectedObject > boxes;
-    std::vector < DetectedObject > boxes_result;
-    int SS = S * S;     // number of grid cells 7*7 = 49
-    // First 980 values correspons to probabilities for each of the 20 classes for each grid cell.
-    // These probabilities are conditioned on objects being present in each grid cell.
-    int prob_size = SS * C; // class probabilities 49 * 20 = 980
-    // The next 98 values are confidence scores for 2 bounding boxes predicted by each grid cells.
-    int conf_size = SS * B; // 49*2 = 98 confidences for each grid cell
-
-    float *probs = &net_out[0];
-    float *confs = &net_out[prob_size];
-    float *cords = &net_out[prob_size + conf_size]; // 98*4 = 392 coords x, y, w, h
-
-    for (int grid = 0; grid < SS; grid++)
-    {
-        int row = grid / S;
-        int col = grid % S;
-        for (int b = 0; b < B; b++)
-        {
-            float conf = confs[(grid * B + b)];
-            float prob = probs[grid * C + class_num] * conf;
-            prob *= 3;  //TODO: probabilty is too low... check.
-
-            if (prob < threshold) continue;
-
-            float xc = (cords[(grid * B + b) * 4 + 0] + col) / S;
-            float yc = (cords[(grid * B + b) * 4 + 1] + row) / S;
-            float w = pow(cords[(grid * B + b) * 4 + 2], 2);
-            float h = pow(cords[(grid * B + b) * 4 + 3], 2);
-
-            DetectedObject bx(class_num,
-                              (xc - w / 2)*modelWidth,
-                              (yc - h / 2)*modelHeight,
-                              (xc + w / 2)*modelWidth,
-                              (yc + h / 2)*modelHeight,
-                              prob);
-
-            boxes_result.push_back(bx);
-        }
-    }
-
-    return boxes_result;
-}
-
 /**
 * \brief This function prints performance counters
 * @param perfomanceMap - map of rerformance counters
@@ -637,7 +513,6 @@ int main(int argc, char *argv[]) {
         // POSTPROCESS STAGE:
         // parse output
         // Output layout depends on network topology
-        // so there are different paths for YOLO and SSD
         //---------------------------
         InferenceEngine::Blob::Ptr detectionOutBlob = outputBlobs[outputName];
         const InferenceEngine::TBlob < float >::Ptr detectionOutArray =
