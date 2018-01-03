@@ -170,6 +170,8 @@ To run:
 
 You should see a video play with people walking across and red bouding boxes around them.
 
+**Note:** If you are running without a display connected to your device, comment out ```cv::imshow("frame", resized[mb]);``` near the end of main.cpp.
+
 You should also see the output in the console showing the objects found and the confidence level.
 
 ![](images/expected_results_1.jpg)
