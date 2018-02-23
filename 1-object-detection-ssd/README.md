@@ -1,6 +1,6 @@
 # Object Recognition using Inference and Single Shot MultiBox Detector (SSD)\*
 
-This tutorial will walk you through the basics of using the Deep Learning Deployment Toolkit's Inference Engine (included in the Intel® Computer Vision SDK). Here, inference is the process of using a trained neural network to infer meaning from data (e.g., images). In the code sample that follows, a video (frame by frame) is fed to the Inference Engine (our trained neural network) which then outputs a result (classification of an image). Inference can be done using various neural network architectures (AlexNet\*, GoogleNet\*, etc.). This example uses a Single Shot MultiBox Detector (SSD) on GoogleNet model.  For an example of how SSD is used see [this article](https://software.intel.com/en-us/articles/unattended-baggage-detection-using-deep-neural-networks-in-intel-architecture) on the Intel® Developer Zone.
+This tutorial will walk you through the basics of using the Deep Learning Deployment Toolkit's Inference Engine (included in the Intel® Computer Vision SDK Beta R3). Here, inference is the process of using a trained neural network to infer meaning from data (e.g., images). In the code sample that follows, a video (frame by frame) is fed to the Inference Engine (our trained neural network) which then outputs a result (classification of an image). Inference can be done using various neural network architectures (AlexNet\*, GoogleNet\*, etc.). This example uses a Single Shot MultiBox Detector (SSD) on GoogleNet model.  For an example of how SSD is used see [this article](https://software.intel.com/en-us/articles/unattended-baggage-detection-using-deep-neural-networks-in-intel-architecture) on the Intel® Developer Zone.
 
 The Inference Engine requires that the model be converted to IR (Intermediate Representation) files.  This tutorial will walk you through the basics taking an existing model (GoogleNet) and converting it to IR (Intermediate Representation) files using the Model Optimizer.
 
@@ -10,7 +10,7 @@ The Inference Engine requires that the model be converted to IR (Intermediate Re
 
 ## What you’ll Learn
   * How to install the OpenCL™ Runtime Package
-  * How to install the Intel® Computer Vision SDK 
+  * How to install the Intel® Computer Vision SDK Beta R3 
   * How to generate the .bin and .xml (IR files) needed for the Inference Engine from a Caffe model
   * Run the Inference Engine using the generated IR files in a C++ application
   * Compare the performance of CPU vs GPU
@@ -28,11 +28,11 @@ The Inference Engine requires that the model be converted to IR (Intermediate Re
 
 ## Setup
 ### Install OpenCL™ Runtime Package and other dependencies
-In order to run inference on the GPU, you need to first install the OpenCL™ Runtime package. These commands install the OpenCL™ Runtime package, as well as some package dependencies required by the Intel® CV SDK. 
+In order to run inference on the GPU, you need to first install the OpenCL™ Runtime package. These commands install the OpenCL™ Runtime package, as well as some package dependencies required by the Intel® Computer Vision SDK Beta R3. 
 
-**Note:** These steps are for Ubuntu 16.04.3 or later.  If you have a version older than 16.04.3, then you need to still install the Package dependencies below, then skip down to the Install Intel® CV SDK section for instructions on installing the OpenCL™ Driver.
+**Note:** These steps are for Ubuntu 16.04.3 or later.  If you have a version older than 16.04.3, then you need to still install the Package dependencies below, then skip down to the Install Intel® Computer Vision SDK Beta R3 section for instructions on installing the OpenCL™ Driver.
 
-Intel® CV SDK Package dependencies:
+Intel® Computer Vision SDK Beta R3 Package dependencies:
 ```
 sudo apt-get update
 sudo apt-get install build-essential ffmpeg cmake checkinstall pkg-config yasm libjpeg-dev curl imagemagick gedit mplayer unzip libpng12-dev libcairo2-dev libpango1.0-dev libgtk2.0-dev libgstreamer0.10-dev libswscale.dev libavcodec-dev libavformat-dev
@@ -54,7 +54,7 @@ sudo cp -R intel-opencl/* /
 sudo ldconfig
 ```
 
-### Install Intel® CV SDK
+### Install Intel® Computer Vision SDK
 1. Go to https://software.seek.intel.com/computer-vision-software
 2. Register, then wait for a confirmation email.  It can take *__several__* hours to get the email. So go take a break and come back once you're received the email. 
 
@@ -72,7 +72,7 @@ tar zxvf intel_cv_sdk_ubuntu_r3_2017.1.163.tgz
 
 **Note:** If you are running a version older than Ubuntu 16.04.3, then to install the OpenCL™ Driver you need to run the ```install_OCL_driver.sh``` script in the downloaded folder **before** running the Intel® CV SDK installation.  This script can take over half an hour to complete.  It will re-build the kernel with the updated driver.  Your computer will restart through the process. Make sure to backup your data before running this script.  If you prefer not to continue with this kernel re-build, then we recommend you install Ubuntu 16.04.3 or later which only needs a few files installed (instructions above) and does not need a kernel re-build.
 
-5. In the cv sdk folder: 
+5. In the Intel® Computer Vision SDK: 
 ```
 cd intel_cv_sdk_ubuntu_r3_2017.1.163/
 ```
