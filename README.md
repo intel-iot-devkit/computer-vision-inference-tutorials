@@ -1,4 +1,4 @@
-This repository contains a tutorial for using Deep Learning Deployment Toolkit's Inference Engine (included in the Intel® Computer Vision SDK).  
+This repository contains a tutorial for using Deep Learning Deployment Toolkit's Inference Engine (included in the Intel® Computer Vision SDK Beta R3).  
 
 Proceed by [reading the tutorial](1-object-detection-ssd/) for instructions on how to setup and run.
 
