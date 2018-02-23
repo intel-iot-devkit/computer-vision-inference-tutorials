@@ -54,7 +54,7 @@ sudo cp -R intel-opencl/* /
 sudo ldconfig
 ```
 
-### Install Intel® Computer Vision SDK
+### Install Intel® Computer Vision SDK Beta R3
 1. Go to https://software.seek.intel.com/computer-vision-software
 2. Register, then wait for a confirmation email.  It can take *__several__* hours to get the email. So go take a break and come back once you're received the email. 
 
@@ -72,7 +72,7 @@ tar zxvf intel_cv_sdk_ubuntu_r3_2017.1.163.tgz
 
 **Note:** If you are running a version older than Ubuntu 16.04.3, then to install the OpenCL™ Driver you need to run the ```install_OCL_driver.sh``` script in the downloaded folder **before** running the Intel® CV SDK installation.  This script can take over half an hour to complete.  It will re-build the kernel with the updated driver.  Your computer will restart through the process. Make sure to backup your data before running this script.  If you prefer not to continue with this kernel re-build, then we recommend you install Ubuntu 16.04.3 or later which only needs a few files installed (instructions above) and does not need a kernel re-build.
 
-5. In the Intel® Computer Vision SDK: 
+5. In the Intel® Computer Vision SDK Beta R3: 
 ```
 cd intel_cv_sdk_ubuntu_r3_2017.1.163/
 ```
