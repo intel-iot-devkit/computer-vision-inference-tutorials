@@ -58,7 +58,7 @@ sudo ldconfig
 1. Go to https://software.seek.intel.com/computer-vision-software
 2. Register, then wait for a confirmation email.  It can take *__several__* hours to get the email. So go take a break and come back once you're received the email. 
 
-If you've already registered for the Intel® CV SDK before, you should get access to download almost immediately.
+If you've already registered for the Intel® Computer Vision SDK Beta R3 before, you should get access to download almost immediately.
 
 ![](images/email-confirmation.jpg)  
 
